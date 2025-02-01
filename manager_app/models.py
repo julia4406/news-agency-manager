@@ -8,7 +8,7 @@ class Subject(models.Model):
 
 
 class Editor(AbstractUser):
-    experience = models.PositiveIntegerField()
+    experience = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return (f"Editor {self.username}: {self.first_name} {self.last_name}, "
