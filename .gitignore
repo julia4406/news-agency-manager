@@ -1,4 +1,10 @@
 /.venv/
+.idea/runConfigurations/
+.idea/Portfolio_Django_News_agency_Manager.iml
+.idea/codeStyles/codeStyleConfig.xml
+.idea/runConfigurations/NewsAgency.xml
+.idea/sqldialects.xml
+
 
 # Created by https://www.toptal.com/developers/gitignore/api/python,pycharm,django
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,pycharm,django
