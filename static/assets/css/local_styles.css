@@ -40,3 +40,14 @@
     color: black; /* Колір тексту чорний */
     table-layout: auto;
     }
+
+.custom-hr {
+    border: 1px solid #0a0a0a;
+    width: 100%;
+  }
+
+.header-with-button-right {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

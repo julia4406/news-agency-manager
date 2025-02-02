@@ -25,6 +25,11 @@ urlpatterns = [
         name='publication-create'
     ),
     path(
+        'publications/update/<int:pk>/',
+        views.PublicationUpdateView.as_view(),
+        name='publication-update'
+    ),
+    path(
         'publications/<int:pk>/',
         views.PublicationDetailView.as_view(),
          name='publication-detail'

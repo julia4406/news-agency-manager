@@ -20,7 +20,7 @@ class PublicationForm(forms.ModelForm):
         widget=forms.CheckboxSelectMultiple,
     )
     content = forms.CharField(
-        widget=forms.Textarea(attrs={'rows': 10, 'cols': 200}),
+        widget=forms.Textarea(attrs={'rows': 10, 'cols': 120}),
         required=True
     )
     publication_date = forms.DateField(

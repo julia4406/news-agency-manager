@@ -3,7 +3,7 @@ from datetime import timedelta
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.utils import timezone
-from django.views.generic import ListView, CreateView, DetailView
+from django.views.generic import ListView, CreateView, DetailView, UpdateView
 
 from manager_app.forms import (
     LoginForm,
@@ -57,10 +57,17 @@ class PublicationListView(ListView):
         return context
 
 
-
 class PublicationCreateView(CreateView):
     model = Publication
     form_class = PublicationForm
+    success_url = reverse_lazy("manager_app:publication-list")
+
+
+class PublicationUpdateView(UpdateView):
+    model = Publication
+    form_class = PublicationForm
+    template_name = "manager_app/publication_form.html"
+    context_object_name = "publication"
     success_url = reverse_lazy("manager_app:publication-list")
 
 
