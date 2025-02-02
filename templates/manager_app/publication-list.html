@@ -1,10 +1,90 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block body %}page-frame bg-gray-200{% endblock body %}
+
+{% block content %}
+
+	<div class="content-container">
+  <div class="container mt-5">
+    <div class="card shadow p-4">
+
+		<!-- CONTENT -->
+
+		<div style="display: flex; align-items: center; justify-content: space-between">
+			<h1>Publications</h1>
+			<a class="btn btn-success btn-lg"
+				 style="display: inline-flex;"
+				 href="{% url 'manager_app:publication-create' %}"
+				 role="button">
+					Create
+			</a>
+  	</div>
+		<br><br>
+
+				<!--table-->
+				<table class="table" style="table-layout: fixed; width: 100%;">
+          <thead style="background-color: #f8f9fa;" class="thead-light">
+            <tr>
+              <th scope="col" style="width: 10%;">#</th>
+              <th scope="col"
+									style="width: 40%;
+									word-wrap: break-word;
+									overflow: hidden;
+									text-overflow: fade;">
+								Title
+							</th>
+              <th scope="col" style="width: 15%;">Release Date</th>
+              <th scope="col" style="width: 25%;">Editors-in-chief</th>
+            </tr>
+          </thead>
+
+					{% if publication_list %}
+					{% for item in publication_list %}
+
+							<tr>
+									<td >{{ item.id }}</td>
+									<td>{{ item.title }}</td>
+									<td>
+
+											{% if two_day_gap >= item.publication_date %}
+												<span style="color: red">
+													{{ item.publication_date }}
+												</span>
+											{% else %}
+												{{ item.publication_date }}
+											{% endif %}
+
+									</td>
+									<td>
+										{%  for editor in item.executives.all %}
+											{{ editor.first_name }} {{ editor.last_name }}<br>
+										{% endfor %}
+									</td>
+							</tr>
+
+					</tbody>
+					{% endfor %}
+				{% endif %}
+				</table>
+				<!--end table-->
+
+
+		<!-- END CONTENT -->
+
+
+    </div>
+  </div>
+	</div>
+
+{% endblock content %}
+
+{% block extra_js %}
+  <script src="{% static 'assets/js/plugins/countup.min.js' %}"></script>
+  <script src="{% static 'assets/js/plugins/choices.min.js' %}"></script>
+  <script src="{% static 'assets/js/plugins/prism.min.js' %}"></script>
+  <script src="{% static 'assets/js/plugins/highlight.min.js' %}"></script>
+  <script src="{% static 'assets/js/plugins/rellax.min.js' %}"></script>
+  <script src="{% static 'assets/js/plugins/tilt.min.js' %}"></script>
+  <script src="{% static 'assets/js/plugins/choices.min.js' %}"></script>
+{% endblock extra_js %}
