@@ -28,12 +28,13 @@
             <tr>
               <th scope="col" style="width: 10%;">#</th>
               <th scope="col"
-									style="width: 40%;
+									style="width: 30%;
 									word-wrap: break-word;
 									overflow: hidden;
 									text-overflow: fade;">
 								Title
 							</th>
+							<th scope="col" style="width: 15%;">INFO</th>
               <th scope="col" style="width: 15%;">Release Date</th>
               <th scope="col" style="width: 25%;">Editors-in-chief</th>
             </tr>
@@ -43,8 +44,15 @@
 					{% for item in publication_list %}
 
 							<tr>
-									<td >{{ item.id }}</td>
+									<td>{{ item.id }}</td>
 									<td>{{ item.title }}</td>
+									<td>
+										<a href="{% url "manager_app:publication-detail" pk=item.id %}"
+												type="button"
+												class="btn bg-gradient-light w-auto me-2">
+											Details
+										</a>
+									</td>
 									<td>
 
 											{% if two_day_gap >= item.publication_date %}

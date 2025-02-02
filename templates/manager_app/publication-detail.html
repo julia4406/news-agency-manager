@@ -1,0 +1,77 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block body %}page-frame bg-gray-200{% endblock body %}
+
+{% block content %}
+
+	<div class="content-container">
+  <div class="container mt-5">
+    <div class="card shadow p-4">
+
+		<!-- CONTENT -->
+		  <h1>{{ publication.title }}</h1>
+{#  		<p>Manufacturer: ({{ car.manufacturer.name }}, {{ car.manufacturer.country }})</p>#}
+{##}
+{#			<div style="display: flex; align-items: center; gap: 65%;">#}
+{#				<h1>Drivers</h1>#}
+{##}
+{#				{% if user.is_authenticated %}#}
+{#				<form action="{% url 'taxi:assign-driver' pk=car.id %}" method="post">#}
+{#					{% csrf_token %}#}
+{##}
+{#					{% if not user_is_owner %}#}
+{#						<button type="submit"#}
+{#							 class="btn btn-success"#}
+{#							 >#}
+{#							Assign me to this car#}
+{#						</button>#}
+{#					{% else %}#}
+{#						<button type="submit"#}
+{#							 class="btn btn-danger"#}
+{#							 >#}
+{#							Delete me from this car#}
+{#						</button>#}
+{#					{% endif %}#}
+{##}
+{#				</form>#}
+{#				{% endif %}#}
+{##}
+{##}
+{#			</div>#}
+{##}
+{#			<hr>#}
+{#			<ul>#}
+{#				{% for driver in car.drivers.all %}#}
+{#					<li>{{ driver.username }} ({{ driver.first_name }} {{ driver.last_name }})</li>#}
+{#				{% endfor %}#}
+{#			</ul>#}
+{#			<br><br><br>#}
+{#			<div style="display: flex; gap: 20px;">#}
+{#			<a href="{% url 'taxi:car-delete' pk=car.id %}" class="btn btn-danger link-to-page">#}
+{#					Delete#}
+{#				</a>#}
+{##}
+{#				<a href="{% url 'taxi:car-update' pk=car.id %}" class="btn btn-secondary link-to-page">#}
+{#					Update#}
+{#				</a>#}
+{#			</div>#}
+
+		<!-- END CONTENT -->
+
+
+    </div>
+  </div>
+	</div>
+
+{% endblock content %}
+
+{% block extra_js %}
+  <script src="{% static 'assets/js/plugins/countup.min.js' %}"></script>
+  <script src="{% static 'assets/js/plugins/choices.min.js' %}"></script>
+  <script src="{% static 'assets/js/plugins/prism.min.js' %}"></script>
+  <script src="{% static 'assets/js/plugins/highlight.min.js' %}"></script>
+  <script src="{% static 'assets/js/plugins/rellax.min.js' %}"></script>
+  <script src="{% static 'assets/js/plugins/tilt.min.js' %}"></script>
+  <script src="{% static 'assets/js/plugins/choices.min.js' %}"></script>
+{% endblock extra_js %}

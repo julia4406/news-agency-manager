@@ -14,8 +14,21 @@ urlpatterns = [
     path('contact-us/', views.contact_us, name='contact-us'),
     # path('about-us/', views.about_us, name='about-us'),
     path('author/', views.author, name='author'),
-    path('publications/', views.PublicationListView.as_view(), name='publication-list'),
-    path('publications/create', views.PublicationCreateView.as_view(), name='publication-create'),
+    path(
+        'publications/',
+        views.PublicationListView.as_view(),
+        name='publication-list'
+    ),
+    path(
+        'publications/create',
+        views.PublicationCreateView.as_view(),
+        name='publication-create'
+    ),
+    path(
+        'publications/<int:pk>/',
+        views.PublicationDetailView.as_view(),
+         name='publication-detail'
+    ),
     #
     # # Authentication
     # path('accounts/login/', views.UserLoginView.as_view(), name='login'),

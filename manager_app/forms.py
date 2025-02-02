@@ -32,6 +32,8 @@ class PublicationForm(forms.ModelForm):
         fields = "__all__"
 
 
+
+
 class RegistrationForm(UserCreationForm):
     class Meta:
         model = User
