@@ -34,6 +34,11 @@ urlpatterns = [
         views.PublicationDetailView.as_view(),
          name='publication-detail'
     ),
+    path(
+        'publications/delete/<int:pk>/',
+        views.PublicationDeleteView.as_view(),
+         name='publication-delete'
+    ),
     #
     # # Authentication
     # path('accounts/login/', views.UserLoginView.as_view(), name='login'),
