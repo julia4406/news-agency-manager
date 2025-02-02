@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import (
     UserCreationForm,
     AuthenticationForm,
@@ -9,6 +10,26 @@ from django.contrib.auth.forms import (
 )
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
+
+from manager_app.models import Publication
+
+
+class PublicationForm(forms.ModelForm):
+    executives = forms.ModelMultipleChoiceField(
+        queryset=get_user_model().objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+    )
+    content = forms.CharField(
+        widget=forms.Textarea(attrs={'rows': 10, 'cols': 200}),
+        required=True
+    )
+    publication_date = forms.DateField(
+        widget=forms.DateInput(attrs={'type': 'date'}),
+    )
+
+    class Meta:
+        model = Publication
+        fields = "__all__"
 
 
 class RegistrationForm(UserCreationForm):

@@ -3,6 +3,7 @@ from django.contrib.auth import views as auth_views
 
 from manager_app import views
 
+
 app_name = "manager_app"
 urlpatterns = [
     #path("", index, name="index"),
@@ -13,6 +14,8 @@ urlpatterns = [
     path('contact-us/', views.contact_us, name='contact-us'),
     # path('about-us/', views.about_us, name='about-us'),
     path('author/', views.author, name='author'),
+    path('publications/', views.PublicationListView.as_view(), name='publication-list'),
+    path('publications/create', views.PublicationCreateView.as_view(), name='publication-create'),
     #
     # # Authentication
     # path('accounts/login/', views.UserLoginView.as_view(), name='login'),

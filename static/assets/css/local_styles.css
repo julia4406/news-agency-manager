@@ -26,3 +26,17 @@
         0 0 5px rgba(55, 17, 152, 0.7);
     letter-spacing: 1px;
 }
+
+
+.content-container {
+    max-height: calc(100vh - 80px); /* Обмежуємо висоту контенту */
+    overflow-y: auto; /* Додаємо прокручування */
+    width: 87%;
+    margin: 50px auto; /* Центрування контейнера */
+    padding: 0 15px; /* Для виведення контейнера з відступами */
+    }
+
+.table td, .table th {
+    color: black; /* Колір тексту чорний */
+    table-layout: auto;
+    }

@@ -6,13 +6,15 @@ from django.urls import reverse
 class Subject(models.Model):
     name = models.CharField(max_length=50)
 
+    def __str__(self):
+        return f"{self.name}"
+
 
 class Editor(AbstractUser):
     experience = models.PositiveIntegerField(default=0)
 
     def __str__(self):
-        return (f"Editor {self.username}: {self.first_name} {self.last_name}, "
-                f"{self.experience} years of experience")
+        return f"{self.first_name} {self.last_name}"
 
     def get_absolute_url(self):
         return reverse("manager_app:editor-detail", kwargs={"pk": self.pk})

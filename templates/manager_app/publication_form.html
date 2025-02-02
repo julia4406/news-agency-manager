@@ -1,5 +1,4 @@
 {% extends "layouts/base.html" %}
-{% load crispy_forms_filters %}
 {% load static %}
 
 {% block body %}page-frame bg-gray-200{% endblock body %}
@@ -11,13 +10,41 @@
     <div class="card shadow p-4">
 
 		<!-- CONTENT -->
-		<h1>{{ object|yesno:"Update,Create" }} car</h1>
+		<h1>{{ object|yesno:"Update,Create" }} publication</h1>
 		<form action="" method="post" novalidate>
 			{% csrf_token %}
 
-			{{ form|crispy }}
+			<!-- Title -->
+            <div class="input-group input-group-dynamic mb-4">
+              <label class="form-label">Title</label>
+              {{ form.title }}
+            </div>
 
-			<input type="submit" value="Submit" class="btn btn-primary">
+			<!-- Subject (toggle list) -->
+            <div class="mb-4">
+              <label class="form-label">Subject</label>
+              {{ form.subject }}
+            </div>
+
+			<!-- Content (Textarea) -->
+            <div class="input-group mb-4 input-group-static">
+              <label class="form-label">Content</label>
+              {{ form.content }}
+            </div>
+
+            <!-- Publication Date -->
+            <div class="mb-4">
+							<label for="{{ form.publication_date.id_for_label }}" class="form-label">Publication Date</label>
+							{{ form.publication_date }}
+						</div>
+
+            <!-- Editors-in-Chief (Checkboxes) -->
+            <div class="mb-4">
+              <label class="form-label">Responsive Editors</label>
+              {{ form.executives }}
+            </div>
+
+				<input type="submit" value="Create Publication" class="btn btn-info">
 		</form>
 
 		<!-- END CONTENT -->
@@ -28,13 +55,3 @@
 	</div>
 
 {% endblock content %}
-
-{% block extra_js %}
-  <script src="{% static 'assets/js/plugins/countup.min.js' %}"></script>
-  <script src="{% static 'assets/js/plugins/choices.min.js' %}"></script>
-  <script src="{% static 'assets/js/plugins/prism.min.js' %}"></script>
-  <script src="{% static 'assets/js/plugins/highlight.min.js' %}"></script>
-  <script src="{% static 'assets/js/plugins/rellax.min.js' %}"></script>
-  <script src="{% static 'assets/js/plugins/tilt.min.js' %}"></script>
-  <script src="{% static 'assets/js/plugins/choices.min.js' %}"></script>
-{% endblock extra_js %}

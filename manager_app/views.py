@@ -1,10 +1,16 @@
+from datetime import timedelta
+
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
+from django.utils import timezone
+from django.views.generic import ListView, CreateView
+
 from manager_app.forms import (
     LoginForm,
     RegistrationForm,
     UserPasswordResetForm,
     UserSetPasswordForm,
-    UserPasswordChangeForm,
+    UserPasswordChangeForm, PublicationForm,
 )
 from django.contrib.auth import logout
 
@@ -36,6 +42,26 @@ def index(request):
         "pages/index.html",
         context=context
     )
+
+
+class PublicationListView(ListView):
+    model = Publication
+    template_name = "manager_app/publication-list.html"
+    context_object_name = "publication_list"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        today = timezone.now().date()
+        two_day_gap = today + timedelta(days=2)
+        context["two_day_gap"] = two_day_gap
+        return context
+
+
+
+class PublicationCreateView(CreateView):
+    model = Publication
+    form_class = PublicationForm
+    success_url = reverse_lazy("manager_app:publication-list")
 
 
 def under_construction(request):
