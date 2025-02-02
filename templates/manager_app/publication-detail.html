@@ -9,6 +9,22 @@
   <div class="container mt-5">
     <div class="card shadow p-4">
 
+		<!--breadcrumbs-->
+	<div class="container py-2 mt-1">
+  <div class="row">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item text-dark opacity-5">
+					<a href="{% url 'manager_app:index' %}">Home</a></li>
+        <li class="breadcrumb-item text-dark opacity-5">
+					<a href="{% url 'manager_app:publication-list' %}">Publications</a></li>
+        <li class="breadcrumb-item text-dark active" aria-current="page">Publication</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+	<!--end breadcrumbs-->
+
 		<!-- CONTENT -->
 		  <h2>{{ publication.title }}</h2>
   		<p>Subject: {{ publication.subject.name }}</p>
