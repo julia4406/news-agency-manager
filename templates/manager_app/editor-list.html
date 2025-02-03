@@ -35,16 +35,17 @@
 				<table class="table" style="table-layout: fixed; width: 100%;">
           <thead style="background-color: #f8f9fa;" class="thead-light">
             <tr>
-              <th scope="col" style="width: 10%;">#</th>
+							<th scope="col" style="width: 15%;">#</th>
+              <th scope="col" style="width: 10%;">ID</th>
               <th scope="col"
-									style="width: 30%;
+									style="width: 25%;
 									word-wrap: break-word;
 									overflow: hidden;
 									text-overflow: fade;">
 								First name
 							</th>
 							<th scope="col"
-									style="width: 30%;
+									style="width: 25%;
 									word-wrap: break-word;
 									overflow: hidden;
 									text-overflow: fade;">
@@ -58,6 +59,7 @@
 					{% for item in editor_list %}
 
 							<tr>
+									<td style="align-items: center"><strong>{{ forloop.counter }}</strong></td>
 									<td>{{ item.id }}</td>
 									<td>{{ item.first_name }}</td>
 									<td>{{ item.last_name }}</td>

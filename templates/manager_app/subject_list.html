@@ -34,8 +34,8 @@
 				<table class="table" style="table-layout: fixed; width: 100%;">
           <thead style="background-color: #f8f9fa;" class="thead-light">
             <tr>
-							<th scope="col" style="width: 5%;"></th>
-							<th scope="col" style="width: 15%;">ID</th>
+							<th scope="col" style="width: 10%;">#</th>
+							<th scope="col" style="width: 10%;">ID</th>
               <th scope="col"
 									style="width: 30%;
 									word-wrap: break-word;
@@ -52,7 +52,7 @@
 					{% if subjects %}
 					{% for subject in subjects %}
 							<tr>
-									<td></td>
+									<td><strong>{{ forloop.counter }}</strong></td>
 									<td>{{ subject.id }}</td>
 									<td>{{ subject.name }}</td>
 									<td style="text-align: center">

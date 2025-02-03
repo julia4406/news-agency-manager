@@ -36,9 +36,10 @@
 				<table class="table" style="table-layout: fixed; width: 100%;">
           <thead style="background-color: #f8f9fa;" class="thead-light">
             <tr>
-              <th scope="col" style="width: 5%;">#</th>
+							<th scope="col" style="width: 4%;">#</th>
+              <th scope="col" style="width: 4%;">ID</th>
               <th scope="col"
-									style="width: 40%;
+									style="width: 37%;
 									word-wrap: break-word;
 									overflow: hidden;
 									text-overflow: fade;">
@@ -55,6 +56,7 @@
 					{% for item in publication_list %}
 
 							<tr>
+									<td><strong>{{ forloop.counter }}</strong></td>
 									<td>{{ item.id }}</td>
 									<td>{{ item.title }}</td>
 									<td>{{ item.subject }}</td>
