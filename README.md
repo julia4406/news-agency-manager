@@ -10,4 +10,6 @@ Publications are sorted by publication_date. Nearest shown first.
 If the publication date is within 2 days, the publication date in the 
 Publications table will be highlighted in red.
 
+Subjects list - possible to delete subject without confirmation.
+
 for adding test data use python manage.py loaddata data.json

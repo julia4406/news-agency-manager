@@ -59,6 +59,22 @@ urlpatterns = [
         'editors/delete/<int:pk>',
         views.EditorDeleteView.as_view(),
         name='editor-delete'),
+    path(
+        'subjects/',
+        views.SubjectListView.as_view(),
+        name='subject-list'),
+    path(
+        'subjects/create/',
+        views.SubjectCreateView.as_view(),
+        name='subject-create'),
+    path(
+        'subjects/update/<int:pk>/',
+        views.SubjectUpdateView.as_view(),
+        name='subject-update'),
+    path(
+        'subjects/delete/<int:pk>/',
+        views.SubjectDeleteView.as_view(),
+        name='subject-delete'),
 
 
 

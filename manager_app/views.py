@@ -12,7 +12,7 @@ from manager_app.forms import (
     # UserPasswordResetForm,
     # UserSetPasswordForm,
     # UserPasswordChangeForm,
-    PublicationForm, EditorForm,
+    PublicationForm, EditorForm, SubjectForm,
 )
 from django.contrib.auth import logout
 
@@ -125,6 +125,31 @@ class EditorDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy("manager_app:editor-list")
 
 
+class SubjectListView(LoginRequiredMixin, ListView):
+    model = Subject
+    queryset = Subject.objects.all().order_by("name")
+    paginate_by = 5
+    context_object_name = "subjects"
+    template_name = "manager_app/subject_list.html"
+
+
+class SubjectCreateView(LoginRequiredMixin, CreateView):
+    model = Subject
+    form_class = SubjectForm
+    template_name = "manager_app/subject_form.html"
+    success_url = reverse_lazy("manager_app:subject-list")
+
+
+class SubjectUpdateView(LoginRequiredMixin, UpdateView):
+    model = Subject
+    form_class = SubjectForm
+    template_name = "manager_app/subject_form.html"
+    success_url = reverse_lazy("manager_app:subject-list")
+
+
+class SubjectDeleteView(LoginRequiredMixin, DeleteView):
+    model = Subject
+    success_url = reverse_lazy("manager_app:subject-list")
 
 
 

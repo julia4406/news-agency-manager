@@ -1,0 +1,51 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block body %}page-frame bg-gray-200{% endblock body %}
+
+{% block content %}
+
+	<div class="content-container">
+  <div class="container mt-5">
+    <div class="card shadow p-4">
+
+	<!--breadcrumbs-->
+	<div class="container py-2 mt-1">
+  <div class="row">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item text-dark opacity-5">
+					<a href="{% url 'manager_app:index' %}">Home</a></li>
+        <li class="breadcrumb-item text-dark opacity-5">
+					<a href="{% url 'manager_app:subject-list' %}">Themes</a></li>
+        <li class="breadcrumb-item text-dark active" aria-current="page">Update theme</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+	<!--end breadcrumbs-->
+
+		<!-- CONTENT -->
+
+		<h1>{{ subject|yesno:"Update,Create" }} subject</h1>
+
+		<form action="" method="post" novalidate>
+			{% csrf_token %}
+
+			<!-- Name -->
+            <div class="mb-4">
+              <label class="form-label">Name</label>
+              {{ form.name }}
+            </div>
+
+				<input type="submit" value="Submit" class="btn btn-info">
+		</form>
+
+		<!-- END CONTENT -->
+
+
+    </div>
+  </div>
+	</div>
+
+{% endblock content %}

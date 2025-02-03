@@ -12,7 +12,7 @@ from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
 from django.utils.translation import gettext_lazy as _
 
-from manager_app.models import Publication, Editor
+from manager_app.models import Publication, Editor, Subject
 
 
 class PublicationForm(forms.ModelForm):
@@ -46,6 +46,11 @@ class EditorForm(UserCreationForm):
             "experience"
         )
 
+
+class SubjectForm(forms.ModelForm):
+    class Meta:
+        model = Subject
+        fields = ["name",]
 
 
 
