@@ -100,6 +100,13 @@
                                     data-bs-placement="bottom" title="Logout">Logout</p>
                             </a>
                         </li>
+
+
+                        <li class="nav-item my-auto ms-3 ms-lg-0">
+                            <a href="{% url 'manager_app:editor-detail' pk=user.id %}" class="btn
+                            bg-gradient-dark mb-0 mt-2 mt-md-0">User Profile</a>
+                        </li>
+
                         {% else %}
                         <li class="nav-item ms-lg-auto">
                             <a class="nav-link nav-link-icon me-2" href="{% url 'manager_app:login' %}">
@@ -110,10 +117,6 @@
                         </li>
                         {% endif %}
 
-                        <li class="nav-item my-auto ms-3 ms-lg-0">
-                            <a href="#" class="btn
-                            bg-gradient-dark mb-0 mt-2 mt-md-0">User Profile</a>
-                        </li>
                     </ul>
                 </div>
             </nav>

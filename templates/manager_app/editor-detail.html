@@ -23,12 +23,12 @@
 		<!-- CONTENT -->
 	<div class="header-with-button-right">
 		<h2>{{ editor.first_name }} {{ editor.last_name }}</h2>
-		<a href="{% url 'manager_app:editor-update' pk=editor.id %}"
-			 class="btn btn-secondary link-to-page"
-				style="display: inline-flex;"
-				role="button">
-			Update
-		</a>
+{#		<a href="{% url 'manager_app:editor-update' pk=editor.id %}"#}
+{#			 class="btn btn-secondary link-to-page"#}
+{#				style="display: inline-flex;"#}
+{#				role="button">#}
+{#			Update#}
+{#		</a>#}
 	</div>
 	<p>username: {{ editor.username }}</p>
 	<p>last login: {{ editor.last_login }}</p>
@@ -86,10 +86,10 @@
 			Delete
 		</a>
 
-		<a href="{% url 'manager_app:editor-update' pk=editor.id%}" class="btn btn-secondary
-		link-to-page">
-			Update
-		</a>
+{#		<a href="{% url 'manager_app:editor-update' pk=editor.id%}" class="btn btn-secondary#}
+{#		link-to-page">#}
+{#			Update#}
+{#		</a>#}
 	</div>
 
 	<!-- Модальне вікно для підтвердження видалення -->
