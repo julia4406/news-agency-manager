@@ -104,11 +104,11 @@ def under_construction(request):
 #     return render(request, 'accounts/sign-up.html', context)
 #
 #
-# class UserLoginView(auth_views.LoginView):
-#     template_name = 'accounts/sign-in.html'
-#     form_class = LoginForm
-#     success_url = '/'
-#
+class UserLoginView(auth_views.LoginView):
+    template_name = "accounts/sign-in.html"
+    form_class = LoginForm
+    success_url = "pages/index.html"
+
 #
 # class UserPasswordResetView(auth_views.PasswordResetView):
 #     template_name = 'accounts/password_reset.html'
@@ -125,23 +125,23 @@ def under_construction(request):
 #     form_class = UserPasswordChangeForm
 #
 #
-# def user_logout_view(request):
-#     logout(request)
-#     return redirect('/accounts/login/')
+def user_logout_view(request):
+    logout(request)
+    return redirect("/accounts/login/")
 
 
 # Pages
 
 def contact_us(request):
-    return render(request, 'pages/contact-us.html')
+    return render(request, "pages/contact-us.html")
 
 
 def about_us(request):
-    return render(request, 'pages/about-us.html')
+    return render(request, "pages/about-us.html")
 
 
 def author(request):
-    return render(request, 'pages/author.html')
+    return render(request, "pages/author.html")
 
 
 # # Sections
@@ -150,7 +150,7 @@ def author(request):
 #
 #
 def page_header(request):
-    return render(request, 'sections/page-sections/hero-sections.html')
+    return render(request, "sections/page-sections/hero-sections.html")
 
 #
 # def features(request):

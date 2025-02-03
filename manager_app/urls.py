@@ -39,10 +39,13 @@ urlpatterns = [
         views.PublicationDeleteView.as_view(),
          name='publication-delete'
     ),
-    #
-    # # Authentication
-    # path('accounts/login/', views.UserLoginView.as_view(), name='login'),
-    # path('accounts/logout/', views.user_logout_view, name='logout'),
+
+
+
+
+    # Authentication
+    path('accounts/login/', views.UserLoginView.as_view(), name='login'),
+    path('accounts/logout/', views.user_logout_view, name='logout'),
     # path('accounts/register/', views.registration, name='register'),
     # path('accounts/password-change/', views.UserPasswordChangeView.as_view(),
     #      name='password_change'),
