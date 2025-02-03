@@ -152,6 +152,12 @@ class SubjectDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy("manager_app:subject-list")
 
 
+class SubjectRelatedPublicationsListView(LoginRequiredMixin, ListView):
+    model = Subject
+    template_name = "manager_app/subject-publications.html"
+
+    # def get_queryset(self):
+    #     queryset =
 
 
 

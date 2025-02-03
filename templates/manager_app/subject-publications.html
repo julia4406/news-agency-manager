@@ -36,7 +36,7 @@
 				<table class="table" style="table-layout: fixed; width: 100%;">
           <thead style="background-color: #f8f9fa;" class="thead-light">
             <tr>
-              <th scope="col" style="width: 5%;">#</th>
+              <th scope="col" style="width: 8%;">#</th>
               <th scope="col"
 									style="width: 40%;
 									word-wrap: break-word;
@@ -44,10 +44,9 @@
 									text-overflow: fade;">
 								Title
 							</th>
-							<th scope="col" style="width: 15%;">Theme</th>
-							<th scope="col" style="width: 10%;">INFO</th>
-              <th scope="col" style="width: 15%;">Release Date</th>
-              <th scope="col" style="width: 15%;">Editors-in-chief</th>
+							<th scope="col" style="width: 15%;">INFO</th>
+              <th scope="col" style="width: 12%;">Release Date</th>
+              <th scope="col" style="width: 25%;">Editors-in-chief</th>
             </tr>
           </thead>
 
@@ -57,7 +56,6 @@
 							<tr>
 									<td>{{ item.id }}</td>
 									<td>{{ item.title }}</td>
-									<td>{{ item.subject }}</td>
 									<td>
 										<a href="{% url "manager_app:publication-detail" pk=item.id %}"
 												type="button"

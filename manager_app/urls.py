@@ -75,6 +75,10 @@ urlpatterns = [
         'subjects/delete/<int:pk>/',
         views.SubjectDeleteView.as_view(),
         name='subject-delete'),
+    path(
+        'subject/<int:pk>/publications/',
+        views.SubjectRelatedPublicationsListView.as_view(),
+        name='subject-related'),
 
 
 
