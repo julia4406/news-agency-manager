@@ -63,6 +63,9 @@ class PublicationListView(LoginRequiredMixin, ListView):
 
 class PublicationDetailView(LoginRequiredMixin, DetailView):
     model = Publication
+    queryset = (Publication.objects
+                .select_related("subject")
+                .prefetch_related("executives"))
     template_name = "manager_app/publication-detail.html"
 
 
@@ -155,10 +158,16 @@ class SubjectDeleteView(LoginRequiredMixin, DeleteView):
 class SubjectRelatedPublicationsListView(LoginRequiredMixin, ListView):
     model = Subject
     template_name = "manager_app/subject-publications.html"
+    context_object_name = "publications"
 
-    # def get_queryset(self):
-    #     queryset =
+    def get_queryset(self):
+        return Publication.objects.filter(subject_id=self.kwargs["pk"])
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context["subject"] = Subject.objects.get(pk=self.kwargs["pk"])
+        return context
 
 
 
