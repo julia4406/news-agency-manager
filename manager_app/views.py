@@ -48,6 +48,7 @@ def index(request):
 
 class PublicationListView(LoginRequiredMixin, ListView):
     model = Publication
+    queryset = Publication.objects.all().order_by("publication_date")
     paginate_by = 5
     template_name = "manager_app/publication-list.html"
     context_object_name = "publication_list"
