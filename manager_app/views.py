@@ -1,5 +1,6 @@
 from datetime import timedelta
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.utils import timezone
@@ -45,7 +46,7 @@ def index(request):
     )
 
 
-class PublicationListView(ListView):
+class PublicationListView(LoginRequiredMixin, ListView):
     model = Publication
     paginate_by = 5
     template_name = "manager_app/publication-list.html"
@@ -59,18 +60,18 @@ class PublicationListView(ListView):
         return context
 
 
-class PublicationDetailView(DetailView):
+class PublicationDetailView(LoginRequiredMixin, DetailView):
     model = Publication
     template_name = "manager_app/publication-detail.html"
 
 
-class PublicationCreateView(CreateView):
+class PublicationCreateView(LoginRequiredMixin, CreateView):
     model = Publication
     form_class = PublicationForm
     success_url = reverse_lazy("manager_app:publication-list")
 
 
-class PublicationUpdateView(UpdateView):
+class PublicationUpdateView(LoginRequiredMixin, UpdateView):
     model = Publication
     form_class = PublicationForm
     template_name = "manager_app/publication_form.html"
@@ -78,7 +79,7 @@ class PublicationUpdateView(UpdateView):
     success_url = reverse_lazy("manager_app:publication-list")
 
 
-class PublicationDeleteView(DeleteView):
+class PublicationDeleteView(LoginRequiredMixin, DeleteView):
     model = Publication
     success_url = reverse_lazy("manager_app:publication-list")
 
@@ -109,6 +110,16 @@ class UserLoginView(auth_views.LoginView):
     template_name = "accounts/sign-in.html"
     form_class = LoginForm
     success_url = "pages/index.html"
+
+    def form_valid(self, form):
+        remember_me = form.cleaned_data.get('remember_me')
+
+        if not remember_me:
+            self.request.session.set_expiry(0)
+        else:
+            self.request.session.set_expiry(1209600)  # 14 days
+
+        return super().form_valid(form)
 
 #
 # class UserPasswordResetView(auth_views.PasswordResetView):

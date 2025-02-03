@@ -32,14 +32,6 @@ class PublicationForm(forms.ModelForm):
         fields = "__all__"
 
 
-class CustomAuthenticationForm(AuthenticationForm):
-    remember_me = forms.BooleanField(
-        required=False,
-        widget=forms.CheckboxInput(),
-        label="Remember Me"
-    )
-
-#
 # class RegistrationForm(UserCreationForm):
 #     class Meta:
 #         model = User
@@ -61,6 +53,9 @@ class LoginForm(AuthenticationForm):
         strip=False,
         widget=forms.PasswordInput(
             attrs={"autocomplete": "current-password", "class": "form-control"}),
+    )
+    remember_me = forms.BooleanField(
+        required=False, initial=False
     )
 
 #
