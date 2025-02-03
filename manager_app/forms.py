@@ -9,9 +9,10 @@ from django.contrib.auth.forms import (
     SetPasswordForm
 )
 from django.contrib.auth.models import User
+from django.core.validators import MinValueValidator
 from django.utils.translation import gettext_lazy as _
 
-from manager_app.models import Publication
+from manager_app.models import Publication, Editor
 
 
 class PublicationForm(forms.ModelForm):
@@ -30,6 +31,22 @@ class PublicationForm(forms.ModelForm):
     class Meta:
         model = Publication
         fields = "__all__"
+
+
+class EditorForm(UserCreationForm):
+    experience = forms.IntegerField(
+        validators=[MinValueValidator(0),]
+    )
+    class Meta(UserCreationForm.Meta):
+        model = Editor
+        fields = UserCreationForm.Meta.fields + (
+            "first_name",
+            "last_name",
+            "email",
+            "experience"
+        )
+
+
 
 
 # class RegistrationForm(UserCreationForm):

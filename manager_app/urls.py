@@ -39,6 +39,19 @@ urlpatterns = [
         views.PublicationDeleteView.as_view(),
          name='publication-delete'
     ),
+    path(
+        'editors/',
+        views.EditorListView.as_view(),
+        name='editor-list'),
+    path(
+        'editors/<int:pk>/',
+        views.EditorDetailView.as_view(),
+        name='editor-detail'),
+    path(
+        'editors/create',
+        views.EditorCreateView.as_view(),
+        name='editor-create'),
+
 
 
 

@@ -1,0 +1,54 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block body %}page-frame bg-gray-200{% endblock body %}
+
+{% block content %}
+	<!--breadcrumbs-->
+	<div class="container py-2 mt-1">
+		<div class="row">
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item text-dark opacity-5">
+						<a href="{% url 'manager_app:index' %}">Home</a></li>
+					<li class="breadcrumb-item text-dark active" aria-current="page">Editors</li>
+				</ol>
+			</nav>
+		</div>
+	</div>
+	<!--end breadcrumbs-->
+
+	<div class="content-container">
+  <div class="container mt-5">
+    <div class="card shadow p-4">
+
+		<!-- CONTENT -->
+			<div class="header-with-button-right">
+				<h1>Editors</h1>
+				<a class="btn btn-success btn-lg"
+					 style="display: inline-flex;"
+					 href="{% url 'manager_app:editor-create' %}"
+					 role="button">
+						Create
+				</a>
+			</div>
+			<br><br>
+
+		<!-- END CONTENT -->
+
+
+    </div>
+  </div>
+	</div>
+
+{% endblock content %}
+
+{% block extra_js %}
+  <script src="{% static 'assets/js/plugins/countup.min.js' %}"></script>
+  <script src="{% static 'assets/js/plugins/choices.min.js' %}"></script>
+  <script src="{% static 'assets/js/plugins/prism.min.js' %}"></script>
+  <script src="{% static 'assets/js/plugins/highlight.min.js' %}"></script>
+  <script src="{% static 'assets/js/plugins/rellax.min.js' %}"></script>
+  <script src="{% static 'assets/js/plugins/tilt.min.js' %}"></script>
+  <script src="{% static 'assets/js/plugins/choices.min.js' %}"></script>
+{% endblock extra_js %}
