@@ -36,7 +36,8 @@
                                 <h6 class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-1 mt-3">
                                     Account
                                 </h6>
-                                <a href="{% url 'login' %}" class="dropdown-item border-radius-md">
+                                <a href="{% url 'manager_app:login' %}" class="dropdown-item
+                                border-radius-md">
                                     <span>Sign In</span>
                                 </a>
                             </div>
@@ -83,7 +84,7 @@
                                     <h6 class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-1 mt-3">
                                         Account
                                     </h6>
-                                    <a href="{% url 'login' %}" class="dropdown-item
+                                    <a href="{% url 'manager_app:login' %}" class="dropdown-item
                                     border-radius-md">
                                         <span>Sign In</span>
                                     </a>
@@ -91,9 +92,9 @@
                             </div>
                         </li>
 
-                        {% if request.user.is_authenticated %}
+                        {% if user.is_authenticated %}
                         <li class="nav-item ms-lg-auto">
-                            <a class="nav-link nav-link-icon me-2" href="{% url 'logout' %}">
+                            <a class="nav-link nav-link-icon me-2" href="{% url 'manager_app:logout' %}">
                                 <i class="fa fa-sign-out me-1"></i>
                                 <p class="d-inline text-sm z-index-1 font-weight-semibold" data-bs-toggle="tooltip"
                                     data-bs-placement="bottom" title="Logout">Logout</p>
@@ -101,7 +102,7 @@
                         </li>
                         {% else %}
                         <li class="nav-item ms-lg-auto">
-                            <a class="nav-link nav-link-icon me-2" href="{% url 'login' %}">
+                            <a class="nav-link nav-link-icon me-2" href="{% url 'manager_app:login' %}">
                                 <i class="fa fa-sign-in me-1"></i>
                                 <p class="d-inline text-sm z-index-1 font-weight-semibold" data-bs-toggle="tooltip"
                                     data-bs-placement="bottom" title="Sign IN">Sign IN</p>
@@ -110,7 +111,8 @@
                         {% endif %}
 
                         <li class="nav-item my-auto ms-3 ms-lg-0">
-                            <a href="{% url "manager_app:contact-us" %}" class="btn bg-gradient-dark mb-0 mt-2 mt-md-0">Join to our command</a>
+                            <a href="#" class="btn
+                            bg-gradient-dark mb-0 mt-2 mt-md-0">User Profile</a>
                         </li>
                     </ul>
                 </div>

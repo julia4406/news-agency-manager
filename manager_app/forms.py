@@ -32,6 +32,12 @@ class PublicationForm(forms.ModelForm):
         fields = "__all__"
 
 
+class CustomAuthenticationForm(AuthenticationForm):
+    remember_me = forms.BooleanField(
+        required=False,
+        widget=forms.CheckboxInput(),
+        label="Remember Me"
+    )
 
 #
 # class RegistrationForm(UserCreationForm):
@@ -47,16 +53,16 @@ class PublicationForm(forms.ModelForm):
 #                 'class': 'form-control',
 #             })
 #
-#
-# class LoginForm(AuthenticationForm):
-#     username = UsernameField(widget=forms.TextInput(attrs={"class": "form-control"}))
-#     password = forms.CharField(
-#         label=_("Password"),
-#         strip=False,
-#         widget=forms.PasswordInput(
-#             attrs={"autocomplete": "current-password", "class": "form-control"}),
-#     )
-#
+
+class LoginForm(AuthenticationForm):
+    username = UsernameField(widget=forms.TextInput(attrs={"class": "form-control"}))
+    password = forms.CharField(
+        label=_("Password"),
+        strip=False,
+        widget=forms.PasswordInput(
+            attrs={"autocomplete": "current-password", "class": "form-control"}),
+    )
+
 #
 # class UserPasswordResetForm(PasswordResetForm):
 #     email = forms.EmailField(widget=forms.EmailInput(attrs={

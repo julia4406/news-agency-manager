@@ -6,7 +6,7 @@ from django.utils import timezone
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 
 from manager_app.forms import (
-    # LoginForm,
+    LoginForm,
     # RegistrationForm,
     # UserPasswordResetForm,
     # UserSetPasswordForm,
@@ -105,10 +105,10 @@ def under_construction(request):
 #     return render(request, 'accounts/sign-up.html', context)
 #
 #
-# class UserLoginView(auth_views.LoginView):
-#     template_name = "accounts/sign-in.html"
-#     form_class = LoginForm
-#     success_url = "pages/index.html"
+class UserLoginView(auth_views.LoginView):
+    template_name = "accounts/sign-in.html"
+    form_class = LoginForm
+    success_url = "pages/index.html"
 
 #
 # class UserPasswordResetView(auth_views.PasswordResetView):
@@ -126,9 +126,9 @@ def under_construction(request):
 #     form_class = UserPasswordChangeForm
 #
 #
-# def user_logout_view(request):
-#     logout(request)
-#     return redirect("/accounts/login/")
+def user_logout_view(request):
+    logout(request)
+    return redirect("/accounts/login/")
 
 
 # Pages
