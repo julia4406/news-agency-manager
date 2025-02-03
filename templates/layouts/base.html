@@ -15,7 +15,26 @@
         {% include "includes/navigation.html" %}
     {% endblock navigation %}
 
-    {% block content %}{% endblock content %}
+
+		<div class="content-container">
+			<div class="container mt-5">
+				<div class="card shadow p-4">
+
+					{% block content %}
+						<!--CONTENT BLOCK-->
+					{% endblock content %}
+
+{#					<div class="pagination-container">#}
+						{% block pagination %}
+								{% include "includes/pagination.html" %}
+						{% endblock pagination %}
+{#					</div>#}
+
+				</div>
+			</div>
+		</div>
+
+
 
     {% block footer %}
         {% include "includes/footer-transparent.html" %}

@@ -51,3 +51,7 @@
     align-items: center;
     justify-content: space-between;
 }
+
+.pagination .page-item.active .page-link {
+    color: white;
+}
