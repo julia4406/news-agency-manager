@@ -30,7 +30,7 @@
 
 
 .table td, .table th {
-    color: black; /* Колір тексту чорний */
+    color: black; /* Text color black */
     table-layout: auto;
     }
 

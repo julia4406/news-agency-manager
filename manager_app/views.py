@@ -97,6 +97,14 @@ class EditorDetailView(LoginRequiredMixin, DetailView):
     model = Editor
     template_name = "manager_app/editor-detail.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        editor = self.get_object()
+        context["publications"] = editor.publications.all()
+
+        return context
+
 
 class EditorCreateView(LoginRequiredMixin, CreateView):
     model = Editor

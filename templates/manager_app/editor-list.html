@@ -18,9 +18,6 @@
 	</div>
 	<!--end breadcrumbs-->
 
-	<div class="content-container">
-  <div class="container mt-5">
-    <div class="card shadow p-4">
 
 		<!-- CONTENT -->
 			<div class="header-with-button-right">
@@ -34,12 +31,52 @@
 			</div>
 			<br><br>
 
+			<!--table-->
+				<table class="table" style="table-layout: fixed; width: 100%;">
+          <thead style="background-color: #f8f9fa;" class="thead-light">
+            <tr>
+              <th scope="col" style="width: 10%;">#</th>
+              <th scope="col"
+									style="width: 30%;
+									word-wrap: break-word;
+									overflow: hidden;
+									text-overflow: fade;">
+								First name
+							</th>
+							<th scope="col"
+									style="width: 30%;
+									word-wrap: break-word;
+									overflow: hidden;
+									text-overflow: fade;">
+								Last name
+							</th>
+							<th scope="col" style="width: 15%;">INFO</th>
+            </tr>
+          </thead>
+
+					{% if editor_list %}
+					{% for item in editor_list %}
+
+							<tr>
+									<td>{{ item.id }}</td>
+									<td>{{ item.first_name }}</td>
+									<td>{{ item.last_name }}</td>
+									<td>
+										<a href="{% url "manager_app:editor-detail" pk=item.id %}"
+												type="button"
+												class="btn bg-gradient-light w-auto me-2">
+											Profile
+										</a>
+									</td>
+
+							</tr>
+
+						{% endfor %}
+					{% endif %}
+				</table>
+				<!--end table-->
+
 		<!-- END CONTENT -->
-
-
-    </div>
-  </div>
-	</div>
 
 {% endblock content %}
 

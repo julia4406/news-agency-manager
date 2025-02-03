@@ -4,29 +4,118 @@
 {% block body %}page-frame bg-gray-200{% endblock body %}
 
 {% block content %}
-
-	<div class="content-container">
-  <div class="container mt-5">
-    <div class="card shadow p-4">
+	<!--breadcrumbs-->
+	<div class="container py-2 mt-1">
+		<div class="row">
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item text-dark opacity-5">
+						<a href="{% url 'manager_app:index' %}">Home</a></li>
+					<li class="breadcrumb-item text-dark opacity-5">
+						<a href="{% url 'manager_app:editor-list' %}">Editors</a></li>
+					<li class="breadcrumb-item text-dark active" aria-current="page">Editor</li>
+				</ol>
+			</nav>
+		</div>
+	</div>
+	<!--end breadcrumbs-->
 
 		<!-- CONTENT -->
+	<div class="header-with-button-right">
+		<h2>{{ editor.first_name }} {{ editor.last_name }}</h2>
+		<a href="{% url 'manager_app:editor-update' pk=editor.id %}"
+			 class="btn btn-secondary link-to-page"
+				style="display: inline-flex;"
+				role="button">
+			Update
+		</a>
+	</div>
+	<p>username: {{ editor.username }}</p>
+	<p>last login: {{ editor.last_login }}</p>
+	<p><strong>Experience: </strong>{{ editor.experience }} years</p>
+	<br>
 
+	<div style="align-items: center;">
+		<h3>Responsible For Publications:</h3>
+		<hr class="custom-hr">
+		<table class="table" style="table-layout: fixed; width: 100%;">
+			<thead style="background-color: #f8f9fa;" class="thead-light">
+				<tr>
+					<th scope="col" style="width: 8%;">#</th>
+					<th scope="col"
+							style="width: 30%;
+							word-wrap: break-word;
+							overflow: hidden;
+							text-overflow: fade;">
+						Title
+					</th>
+					<th scope="col" style="width: 20%;">Release Date</th>
+					<th scope="col" style="width: 15%;">Subject</th>
+					<th scope="col" style="width: 15%;">INFO</th>
+				</tr>
+			{% for item in publications %}
+				<tr style="vertical-align: baseline">
+					<td>{{ item.id }}</td>
+					<td>{{ item.title }}</td>
+					<td>{{ item.publication_date }}</td>
+					<td>{{ item.subject }}</td>
+					<td>
+						<a href="{% url "manager_app:publication-detail" pk=item.id %}"
+								type="button"
+								class="btn bg-gradient-light w-auto me-2 btn-sm">
+							Details
+						</a>
+					</td>
+				</tr>
+			{% endfor %}
+
+			</thead>
+		</table>
+
+		<!-- показати всі публікації ща які відповідає-->
+
+	</div>
+
+
+	<br><br><br>
+
+	<div style="display: flex; gap: 20px;">
+		<a href="{% url 'manager_app:editor-delete' pk=editor.id %}"
+		 class="btn btn-danger link-to-page"
+		data-bs-toggle="modal" data-bs-target="#deleteModal">
+			Delete
+		</a>
+
+		<a href="{% url 'manager_app:editor-update' pk=editor.id%}" class="btn btn-secondary
+		link-to-page">
+			Update
+		</a>
+	</div>
+
+	<!-- Модальне вікно для підтвердження видалення -->
+	<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="deleteModalLabel">Delete editor</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<p>Are you sure you want to delete this editor?</p>
+						</div>
+						<div class="modal-footer">
+							<form action="{% url 'manager_app:editor-delete' pk=editor.id %}" method="post">
+								{% csrf_token %}
+								<button type="submit" class="btn btn-danger">Yes</button>
+							</form>
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+						</div>
+					</div>
+				</div>
+			</div>
+	<!-- end Модальне вікно для підтвердження видалення -->
 
 		<!-- END CONTENT -->
 
-
-    </div>
-  </div>
-	</div>
-
 {% endblock content %}
 
-{% block extra_js %}
-  <script src="{% static 'assets/js/plugins/countup.min.js' %}"></script>
-  <script src="{% static 'assets/js/plugins/choices.min.js' %}"></script>
-  <script src="{% static 'assets/js/plugins/prism.min.js' %}"></script>
-  <script src="{% static 'assets/js/plugins/highlight.min.js' %}"></script>
-  <script src="{% static 'assets/js/plugins/rellax.min.js' %}"></script>
-  <script src="{% static 'assets/js/plugins/tilt.min.js' %}"></script>
-  <script src="{% static 'assets/js/plugins/choices.min.js' %}"></script>
-{% endblock extra_js %}

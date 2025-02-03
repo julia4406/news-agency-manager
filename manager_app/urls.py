@@ -51,6 +51,14 @@ urlpatterns = [
         'editors/create',
         views.EditorCreateView.as_view(),
         name='editor-create'),
+    path(
+        'editors/update/<int:pk>',
+        views.EditorUpdateView.as_view(),
+        name='editor-update'),
+    path(
+        'editors/delete/<int:pk>',
+        views.EditorDeleteView.as_view(),
+        name='editor-delete'),
 
 
 

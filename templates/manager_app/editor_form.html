@@ -32,38 +32,7 @@
 
 		<form action="" method="post" novalidate>
 			{% csrf_token %}
-					{{ form|crispy }}
-{#			<!-- Username -->#}
-{#            <div class="mb-4">#}
-{#              <label class="form-label">Username</label>#}
-{#              {{ form.username }}#}
-{#            </div>#}
-{#			<!-- First name -->#}
-{#            <div class="mb-4">#}
-{#              <label class="form-label">First name</label>#}
-{#              {{ form.first_name }}#}
-{#            </div>#}
-{#						<!-- Last name -->#}
-{#            <div class="mb-4">#}
-{#              <label class="form-label">Last name</label>#}
-{#              {{ form.last_name }}#}
-{#            </div>#}
-{#			<!-- Experience -->#}
-{#            <div class="mb-4">#}
-{#              <label class="form-label">Experience</label>#}
-{#              {{ form.experience }}#}
-{#            </div>#}
-{#			<!-- Password1 -->#}
-{#            <div class="mb-4">#}
-{#              <label class="form-label">Password</label>#}
-{#              {{ form.password1 }}#}
-{#            </div>#}
-{#			<!-- Password2 -->#}
-{#            <div class="mb-4">#}
-{#              <label class="form-label">Confirm Password</label>#}
-{#              {{ form.password2 }}#}
-{#            </div>#}
-
+				{{ form|crispy }}
 				<input type="submit" value="Submit" class="btn btn-info">
 		</form>
 
