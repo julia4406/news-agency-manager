@@ -1,7 +1,7 @@
 from datetime import timedelta
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
@@ -58,6 +58,12 @@ class PublicationListView(LoginRequiredMixin, ListView):
                     .prefetch_related("executives")
                     .order_by("publication_date")
                     )
+        today = timezone.now().date()
+
+        queryset.filter(publication_date__lte=today).update(
+            status=Publication.TaskStatuses.OVERDUE
+        )
+
         form = SearchEditorsInPublicationsForm(self.request.GET)
         if form.is_valid() and form.cleaned_data["query"]:
             return queryset.filter(
@@ -100,6 +106,18 @@ class PublicationUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "manager_app/publication_form.html"
     context_object_name = "publication"
     success_url = reverse_lazy("manager_app:publication-list")
+
+
+def update_status_of_publication(request, pk):
+    publication = get_object_or_404(Publication, pk=pk)
+
+    if publication.status == Publication.TaskStatuses.ASSIGNED:
+        publication.status = Publication.TaskStatuses.DONE
+    elif publication.status == Publication.TaskStatuses.DONE:
+        publication.status = Publication.TaskStatuses.ASSIGNED
+
+    publication.save()
+    return redirect("manager_app:publication-list")
 
 
 class PublicationDeleteView(LoginRequiredMixin, DeleteView):
@@ -187,6 +205,8 @@ class SubjectRelatedPublicationsListView(LoginRequiredMixin, ListView):
 
         context["subject"] = Subject.objects.get(pk=self.kwargs["pk"])
         return context
+
+
 
 
 

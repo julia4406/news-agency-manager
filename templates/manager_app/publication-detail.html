@@ -38,30 +38,6 @@
 			</div>
 			<hr class="custom-hr">
 
-
-{#				{% if user.is_authenticated %}#}
-{#				<form action="{% url 'taxi:assign-driver' pk=car.id %}" method="post">#}
-{#					{% csrf_token %}#}
-{##}
-{#					{% if not user_is_owner %}#}
-{#						<button type="submit"#}
-{#							 class="btn btn-success"#}
-{#							 >#}
-{#							Assign me to this car#}
-{#						</button>#}
-{#					{% else %}#}
-{#						<button type="submit"#}
-{#							 class="btn btn-danger"#}
-{#							 >#}
-{#							Delete me from this car#}
-{#						</button>#}
-{#					{% endif %}#}
-{##}
-{#				</form>#}
-{#				{% endif %}#}
-
-
-
 			<ul style="list-style: none">
 				{% for editor in publication.executives.all %}
 					<li>
@@ -120,7 +96,7 @@
 
 
 
-			</div>
+
 
 		<!-- END CONTENT -->
 

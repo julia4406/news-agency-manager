@@ -21,6 +21,11 @@ class Editor(AbstractUser):
 
 
 class Publication(models.Model):
+    class TaskStatuses(models.TextChoices):
+        DONE = "Done", "Done"
+        ASSIGNED = "Assigned", "Assigned"
+        OVERDUE = "Overdue", "Overdue"
+
     title = models.CharField(max_length=255)
     content = models.TextField()
     created_at = models.DateField(auto_now_add=True)
@@ -32,6 +37,11 @@ class Publication(models.Model):
     )
     executives = models.ManyToManyField(
         Editor,through="PublicationEditor", related_name="publications"
+    )
+    status = models.CharField(
+        max_length=10,
+        choices=TaskStatuses.choices,
+        default="Assigned"
     )
 
     def __str__(self):

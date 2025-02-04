@@ -40,6 +40,11 @@ urlpatterns = [
          name='publication-delete'
     ),
     path(
+        'publication/status/<int:pk>/',
+        views.update_status_of_publication,
+        name='publication-status'
+    ),
+    path(
         'editors/',
         views.EditorListView.as_view(),
         name='editor-list'),
@@ -79,6 +84,7 @@ urlpatterns = [
         'subject/<int:pk>/publications/',
         views.SubjectRelatedPublicationsListView.as_view(),
         name='subject-related'),
+
 
 
 

@@ -65,10 +65,10 @@
 				<table class="table" style="table-layout: fixed; width: 100%;">
           <thead style="background-color: #f8f9fa;" class="thead-light">
             <tr>
-							<th scope="col" style="width: 4%;">#</th>
-              <th scope="col" style="width: 4%;">ID</th>
+							<th scope="col" style="width: 3%;">#</th>
+              <th scope="col" style="width: 3%;">ID</th>
               <th scope="col"
-									style="width: 35%;
+									style="width: 34%;
 									word-wrap: break-word;
 									overflow: hidden;
 									text-overflow: fade;">
@@ -76,8 +76,9 @@
 							</th>
 							<th scope="col" style="width: 10%;">Theme</th>
 							<th scope="col" style="width: 10%;">INFO</th>
-              <th scope="col" style="width: 12%;">Release Date</th>
+              <th scope="col" style="width: 10%;">Release Date</th>
               <th scope="col" style="width: 15%;">Editors-in-chief</th>
+							<th scope="col" style="width: 10%;">IsDone</th>
 							<th scope="col" style="width: 10%;">Delete</th>
             </tr>
           </thead>
@@ -114,6 +115,27 @@
 										{% endfor %}
 									</td>
 									<td>
+										{% if item.status == "Done" %}
+											<a href="{% url "manager_app:publication-status" pk=item.id %}"
+													type="button"
+													class="btn bg-gradient-faded-success w-auto me-2">
+												done
+											</a>
+										{% elif item.status == "Assigned" %}
+											<a href="{% url "manager_app:publication-status" pk=item.id %}"
+													type="button"
+													class="btn bg-gradient-faded-light-vertical w-auto me-2">
+												assigned
+											</a>
+										{% elif item.status == "Overdue" %}
+											<a href="{% url "manager_app:publication-status" pk=item.id %}"
+													type="button"
+													class="btn bg-gradient-danger w-auto me-2">
+												overdue
+											</a>
+										{% endif %}
+									</td>
+									<td>
 											<a href="{% url "manager_app:publication-delete" pk=item.id %}"
 													type="button"
 													class="btn bg-gradient-faded-danger-vertical w-auto me-2">
@@ -127,8 +149,7 @@
 				</table>
 				<!--end table-->
 
-
-		<!-- END CONTENT -->
+	<!-- END CONTENT -->
 
 {% endblock content %}
 
