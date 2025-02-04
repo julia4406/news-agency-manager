@@ -41,7 +41,8 @@ class Publication(models.Model):
     status = models.CharField(
         max_length=10,
         choices=TaskStatuses.choices,
-        default="Assigned"
+        default="Assigned",
+        blank=True,
     )
 
     def __str__(self):

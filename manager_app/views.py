@@ -26,7 +26,6 @@ from django.shortcuts import render
 from manager_app.models import Editor, Publication, Subject
 
 
-
 def index(request):
     num_editors = Editor.objects.count()
     num_publications = Publication.objects.count()
@@ -76,9 +75,7 @@ class PublicationListView(LoginRequiredMixin, ListView):
         two_day_gap = today + timedelta(days=2)
         context["two_day_gap"] = two_day_gap
 
-        query = self.request.GET.get("query", "")
         context["search"] = SearchEditorsInPublicationsForm(
-            # initial={"query": query}
         )
 
         return context
@@ -125,7 +122,6 @@ class PublicationDeleteView(LoginRequiredMixin, DeleteView):
 
 class EditorListView(LoginRequiredMixin, ListView):
     model = Editor
-    # queryset = Editor.objects.all().order_by("last_name")
     paginate_by = 5
     template_name = "manager_app/editor-list.html"
     context_object_name = "editor_list"
