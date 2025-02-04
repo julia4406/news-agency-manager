@@ -12,7 +12,7 @@ from manager_app.forms import (
     # UserPasswordResetForm,
     # UserSetPasswordForm,
     # UserPasswordChangeForm,
-    PublicationForm, EditorForm, SubjectForm,
+    PublicationForm, EditorForm, SubjectForm, EditorUpdateForm,
 )
 from django.contrib.auth import logout
 
@@ -117,7 +117,7 @@ class EditorCreateView(LoginRequiredMixin, CreateView):
 
 class EditorUpdateView(LoginRequiredMixin, UpdateView):
     model = Editor
-    form_class = EditorForm
+    form_class = EditorUpdateForm
     template_name = "manager_app/editor_form.html"
     context_object_name = "editor"
     success_url = reverse_lazy("manager_app:editor-list")

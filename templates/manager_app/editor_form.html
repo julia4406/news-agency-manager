@@ -28,11 +28,12 @@
 
 		<!-- CONTENT -->
 
-		<h1>{{ publication|yesno:"Update,Add" }} editor</h1>
+		<h1>{{ editor|yesno:"Update,Add" }} editor</h1>
 
 		<form action="" method="post" novalidate>
 			{% csrf_token %}
 				{{ form|crispy }}
+			<br><br>
 				<input type="submit" value="Submit" class="btn btn-info">
 		</form>
 

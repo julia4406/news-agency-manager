@@ -6,7 +6,7 @@ from django.contrib.auth.forms import (
     PasswordChangeForm,
     UsernameField,
     PasswordResetForm,
-    SetPasswordForm
+    SetPasswordForm, UserChangeForm
 )
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
@@ -45,6 +45,30 @@ class EditorForm(UserCreationForm):
             "email",
             "experience"
         )
+
+
+class EditorUpdateForm(UserChangeForm):
+    password = None
+    experience = forms.IntegerField(
+        validators=[MinValueValidator(0)],
+        widget=forms.NumberInput(attrs={"min": 0})
+    )
+
+    class Meta(UserChangeForm.Meta):
+        model = Editor
+        fields = [
+            "username",
+            "first_name",
+            "last_name",
+            "email",
+            "experience"
+        ]
+        widgets = {
+            "username": forms.TextInput(attrs={"readonly": "readonly"}),
+            "first_name": forms.TextInput(),
+            "last_name": forms.TextInput(),
+            "email": forms.TextInput(attrs={"readonly": "readonly"}),
+        }
 
 
 class SubjectForm(forms.ModelForm):
