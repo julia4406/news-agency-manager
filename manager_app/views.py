@@ -31,14 +31,11 @@ def index(request):
     num_editors = Editor.objects.count()
     num_publications = Publication.objects.count()
     num_subjects = Subject.objects.count()
-    num_visits = request.session.get("num_visits", 0)
-    num_visits += 1
-    request.session["num_visits"] = num_visits
+
     context = {
         "num_editors": num_editors,
         "num_publications": num_publications,
         "num_subjects": num_subjects,
-        "num_visits": num_visits,
     }
     return render(
         request,
@@ -57,7 +54,7 @@ class PublicationListView(LoginRequiredMixin, ListView):
         queryset = (Publication.objects
                     .select_related("subject")
                     .prefetch_related("executives")
-                    .order_by("publication_date")
+                    .order_by("publication_date", "status")
                     )
         today = timezone.now().date()
 
