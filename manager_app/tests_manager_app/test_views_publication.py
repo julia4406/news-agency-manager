@@ -1,19 +1,14 @@
-from http.client import responses
-
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
 
 from manager_app.models import Editor, Publication, Subject
 
+
 PUBLICATION_LIST_URL = reverse("manager_app:publication-list")
 
 
 class PublicationViewTests(TestCase):
-    fixtures = [
-        "test_data.json",
-    ]
-
     def setUp(self):
         self.user = get_user_model().objects.create_user(
             username="test_user",
@@ -24,6 +19,8 @@ class PublicationViewTests(TestCase):
             experience=5,
         )
         self.client.force_login(self.user)
+        self.subject = Subject.objects.create(name="Test Subject")
+        self.editor = get_user_model().objects.create(username="editor_user")
 
     def test_publication_user_has_to_be_logged(self):
         self.client.logout()
@@ -51,9 +48,6 @@ class PublicationViewTests(TestCase):
         )
 
     def test_create_publication(self):
-        subject = Subject.objects.create(name="Test Subject")
-        editor = get_user_model().objects.create(username="editor_user")
-
         response = self.client.post(
             reverse(
                 "manager_app:publication-create"
@@ -62,9 +56,9 @@ class PublicationViewTests(TestCase):
                 "title": "test_publication",
                 "content": "test content content content content",
                 "publication_date": "2025-02-04",
-                "subject": subject.id,
+                "subject": self.subject.id,
                 "status": "Overdue",
-                "executives": [editor.id],
+                "executives": [self.editor.id],
             }
         )
         self.assertEqual(response.status_code, 302)
@@ -74,20 +68,21 @@ class PublicationViewTests(TestCase):
         )
 
     def test_update_publication(self):
-        subject = Subject.objects.create(name="Test Subject")
-        editor = get_user_model().objects.create(username="editor_user")
         publication = Publication.objects.create(
             title="test_publication",
             content="test content content content content",
-            publication_date="2025-02-04",
-            subject=subject,
-            status="Overdue",
+            publication_date="2026-02-04",
+            subject=self.subject,
         )
-        publication.executives.set([editor])
+        publication.executives.set([self.editor])
         form_data = {
-                "title": "new_test_publication",
-                "content": "new test content",
-            }
+            "title": "new_test_publication",
+            "content": "new test content",
+            "publication_date": "2026-02-04",
+            "subject": publication.subject.id,
+            "executives": [self.editor.id]
+
+        }
         response = self.client.post(
             reverse(
                 "manager_app:publication-update",
@@ -96,21 +91,46 @@ class PublicationViewTests(TestCase):
             data=form_data,
         )
         publication.refresh_from_db()
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
+
         self.assertEqual(
             publication.title,
             "new_test_publication"
         )
 
-    # def test_delete_car(self):
-    #     car = Car.objects.create(
-    #         model="Continental",
-    #         manufacturer=self.manufacturer,
-    #     )
-    #     response = self.client.post(
-    #         reverse("taxi:car-delete", kwargs={"pk": car.id})
-    #     )
-    #     self.assertEqual(response.status_code, 302)
-    #     self.assertFalse(Car.objects.filter(id=car.id).exists())
+    def test_delete_publication(self):
+        publication = Publication.objects.create(
+            title="test_publication",
+            content="test content content content content",
+            publication_date="2026-02-04",
+            subject=self.subject,
+        )
+        publication.executives.set([self.editor])
 
+        response = self.client.post(
+            reverse(
+                "manager_app:publication-delete",
+                kwargs={"pk": publication.id}
+            )
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertFalse(Publication.objects.filter(id=publication.id).exists())
 
+    def test_status_of_publication_updated(self):
+        publication = Publication.objects.create(
+            title="test_publication",
+            content="test content content content content",
+            publication_date="2026-02-04",
+            subject=self.subject,
+        )
+        publication.executives.set([self.editor])
+
+        response = self.client.post(
+            reverse(
+                "manager_app:publication-status",
+                kwargs={"pk": publication.id}
+            )
+        )
+        publication.refresh_from_db()
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(publication.status, "Done")
