@@ -1,6 +1,7 @@
 from datetime import timedelta
 
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Count, Q
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.utils import timezone
@@ -127,10 +128,20 @@ class PublicationDeleteView(LoginRequiredMixin, DeleteView):
 
 class EditorListView(LoginRequiredMixin, ListView):
     model = Editor
-    queryset = Editor.objects.all().order_by("id")
+    # queryset = Editor.objects.all().order_by("last_name")
     paginate_by = 5
     template_name = "manager_app/editor-list.html"
     context_object_name = "editor_list"
+
+    def get_queryset(self):
+        # queryset = Editor.objects.all().order_by("last_name")
+
+        queryset = Editor.objects.annotate(
+            overdues=Count(
+                "publications",
+                filter=Q(publications__status="Overdue")
+            )).order_by("last_name")
+        return queryset
 
 
 class EditorDetailView(LoginRequiredMixin, DetailView):
