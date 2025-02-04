@@ -32,7 +32,7 @@
 						 class="btn btn-secondary link-to-page"
 							style="display: inline-flex;"
 							role="button">
-						Update
+						Update publication
 					</a>
 				</div>
 			</div>
@@ -64,7 +64,12 @@
 
 			<ul style="list-style: none">
 				{% for editor in publication.executives.all %}
-					<li>{{ editor.first_name }} {{ editor.last_name }}</li>
+					<li>
+					<a href="{% url 'manager_app:editor-detail' pk=editor.id%}"
+							style="color: black; font-size: 120%;">
+						{{ editor.first_name }} {{ editor.last_name }}
+					</a>
+					</li>
 				{% endfor %}
 			</ul>
 
