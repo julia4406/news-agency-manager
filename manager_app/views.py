@@ -12,7 +12,7 @@ from manager_app.forms import (
     # UserPasswordResetForm,
     # UserSetPasswordForm,
     # UserPasswordChangeForm,
-    PublicationForm, EditorForm, SubjectForm, EditorUpdateForm,
+    PublicationForm, EditorForm, SubjectForm, EditorUpdateForm, SearchEditorsInPublicationsForm,
 )
 from django.contrib.auth import logout
 
@@ -48,16 +48,35 @@ def index(request):
 
 class PublicationListView(LoginRequiredMixin, ListView):
     model = Publication
-    queryset = Publication.objects.all().order_by("publication_date")
     paginate_by = 5
     template_name = "manager_app/publication-list.html"
     context_object_name = "publication_list"
+
+    def get_queryset(self):
+        queryset = (Publication.objects
+                    .select_related("subject")
+                    .prefetch_related("executives")
+                    .order_by("publication_date")
+                    )
+        form = SearchEditorsInPublicationsForm(self.request.GET)
+        if form.is_valid() and form.cleaned_data["query"]:
+            return queryset.filter(
+                executives__last_name__icontains=form.cleaned_data["query"]
+            )
+
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         today = timezone.now().date()
         two_day_gap = today + timedelta(days=2)
         context["two_day_gap"] = two_day_gap
+
+        query = self.request.GET.get("query", "")
+        context["search"] = SearchEditorsInPublicationsForm(
+            # initial={"query": query}
+        )
+
         return context
 
 

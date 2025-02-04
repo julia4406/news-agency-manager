@@ -77,6 +77,13 @@ class SubjectForm(forms.ModelForm):
         fields = ["name",]
 
 
+class SearchEditorsInPublicationsForm(forms.Form):
+    query = forms.CharField(
+        max_length=255,
+        required=False,
+    )
+
+
 
 # class RegistrationForm(UserCreationForm):
 #     class Meta:

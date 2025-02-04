@@ -1,4 +1,5 @@
 {% extends "layouts/base.html" %}
+{% load crispy_forms_filters %}
 {% load static %}
 
 {% block body %}page-frame bg-gray-200{% endblock body %}
@@ -20,9 +21,35 @@
 	<!--end breadcrumbs-->
 
 		<!-- CONTENT -->
+<!--SEARCH EDITOR FORM-->
+			<section>
+				<div class="container">
+					<div class="row justify-content-end py-1">
+						<div class="col-lg-4 ml-auto">
+							<form method="get" action="">
+								<div class="input-group">
+									<input type="text"
+												 class="form-control"
+												 placeholder="Editor..."
+												 name="query"
+												 value="{{ request.GET.query }}"
+												 style="height: fit-content">
+									<button type="submit" class="btn btn-dark">Search</button>
 
+									{% if request.GET.query %}
+										<a href="{% url 'manager_app:publication-list' %}" class="btn btn-light">Reset</a>
+									{% endif %}
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!--END SEARCH EDITOR FORM-->
 		<div class="header-with-button-right">
+
 			<h1>Publications</h1>
+
 			<a class="btn btn-success btn-lg"
 				 style="display: inline-flex;"
 				 href="{% url 'manager_app:publication-create' %}"
