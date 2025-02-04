@@ -21,31 +21,33 @@
 	<!--end breadcrumbs-->
 
 		<!-- CONTENT -->
-<!--SEARCH EDITOR FORM-->
-			<section>
-				<div class="container">
-					<div class="row justify-content-end py-1">
-						<div class="col-lg-4 ml-auto">
-							<form method="get" action="">
-								<div class="input-group">
-									<input type="text"
-												 class="form-control"
-												 placeholder="Editor..."
-												 name="query"
-												 value="{{ request.GET.query }}"
-												 style="height: fit-content">
-									<button type="submit" class="btn btn-dark">Search</button>
 
-									{% if request.GET.query %}
-										<a href="{% url 'manager_app:publication-list' %}" class="btn btn-light">Reset</a>
-									{% endif %}
-								</div>
-							</form>
-						</div>
+	<!--SEARCH EDITOR FORM-->
+		<section>
+			<div class="container">
+				<div class="row justify-content-end py-1">
+					<div class="col-lg-4 ml-auto">
+						<form method="get" action="">
+							<div class="input-group">
+								<input type="text"
+											 class="form-control"
+											 placeholder="Editor..."
+											 name="query"
+											 value="{{ request.GET.query }}"
+											 style="height: fit-content">
+								<button type="submit" class="btn btn-dark">Search</button>
+
+								{% if request.GET.query %}
+									<a href="{% url 'manager_app:publication-list' %}" class="btn btn-light">Reset</a>
+								{% endif %}
+							</div>
+						</form>
 					</div>
 				</div>
-			</section>
-			<!--END SEARCH EDITOR FORM-->
+			</div>
+		</section>
+	<!--END SEARCH EDITOR FORM-->
+
 		<div class="header-with-button-right">
 
 			<h1>Publications</h1>
@@ -66,16 +68,17 @@
 							<th scope="col" style="width: 4%;">#</th>
               <th scope="col" style="width: 4%;">ID</th>
               <th scope="col"
-									style="width: 37%;
+									style="width: 35%;
 									word-wrap: break-word;
 									overflow: hidden;
 									text-overflow: fade;">
 								Title
 							</th>
-							<th scope="col" style="width: 15%;">Theme</th>
+							<th scope="col" style="width: 10%;">Theme</th>
 							<th scope="col" style="width: 10%;">INFO</th>
-              <th scope="col" style="width: 15%;">Release Date</th>
+              <th scope="col" style="width: 12%;">Release Date</th>
               <th scope="col" style="width: 15%;">Editors-in-chief</th>
+							<th scope="col" style="width: 10%;">Delete</th>
             </tr>
           </thead>
 
@@ -110,6 +113,13 @@
 											{{ editor.first_name }} {{ editor.last_name }}<br>
 										{% endfor %}
 									</td>
+									<td>
+											<a href="{% url "manager_app:publication-delete" pk=item.id %}"
+													type="button"
+													class="btn bg-gradient-faded-danger-vertical w-auto me-2">
+												delete
+											</a>
+										</td>
 							</tr>
 
 						{% endfor %}
