@@ -12,25 +12,32 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 import os
 from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+from dotenv import load_dotenv
 
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
+load_dotenv(BASE_DIR / '.env')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get(
-    'DJANGO_SECRET_KEY',
-    'django-insecure-xbkkttyw(=0w$p6)#v#(_5#xa53%!qpjrgpl!2$02p=_vg2#4o'
-)
+# SECRET_KEY = os.environ.get(
+#     'DJANGO_SECRET_KEY',
+#     'django-insecure-xbkkttyw(=0w$p6)#v#(_5#xa53%!qpjrgpl!2$02p=_vg2#4o'
+# )
+
+SECRET_KEY = os.getenv('SECRET_KEY')
+
 
 # # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = []
 
+LOGIN_REDIRECT_URL = "/"
 
 # Application definition
 
@@ -52,6 +59,7 @@ CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -128,6 +136,8 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATIC_ROOT = 'staticfiles/'
+
 STATICFILES_DIRS = (BASE_DIR / 'static',)
 
 # Default primary key field type
@@ -137,5 +147,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = "manager_app.Editor"
 #admin ad@min.com 123123
-
-LOGIN_REDIRECT_URL = "/"
