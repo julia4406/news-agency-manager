@@ -39,11 +39,12 @@
 
 			{% endfor %}
 			</ul>
-		<a href="{% url 'manager_app:subject-list' %}"
-			 class="btn btn-warning mt-3 w-auto me-2">
-			Back to Subjects
-		</a>
-
+			<div class="col-4">
+				<a href="{% url 'manager_app:subject-list' %}"
+					 class="btn btn-warning mt-3 w-auto me-2">
+					Back to Subjects
+				</a>
+			</div>
 		<!-- END CONTENT -->
 
 {% endblock content %}

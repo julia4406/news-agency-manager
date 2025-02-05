@@ -86,10 +86,6 @@ urlpatterns = [
         name='subject-related'),
 
 
-
-
-
-
     # Authentication
     path('accounts/login/', views.UserLoginView.as_view(), name='login'),
     path('accounts/logout/', views.user_logout_view, name='logout'),
@@ -133,4 +129,3 @@ urlpatterns = [
 ]
 
 # for all not-ready pages: {% url 'manager_app:under_construction' %}
-

@@ -1,0 +1,36 @@
+Project News agency
+("whispers")  News Agency "Whispers"
+
+manager_app 
+
+models:
+
+Editor
+username: str
+email:str
+password: str
+first_name: str
+last_name: str
+experience: int
+
+
+Publication
+title: str
+content: text
+created_at: date
+publication_date: date
+status: "Done", "Assigned", "Overdue"
+subject: Subject
+executives: List[Editor](можна додати до кожного редактора кнопку узгодження випуску, і коли всі узгодили, то випуск відправлється на друк)
+
+Subject
+name: str
+
+todo:
+-mark task as done .If done - in the end of list (or hide)
+
+ідеї:
+-можна додати таблицю з кількістю узгоджених випусків
+
+- окрім таблиці публікації можна зробити таблицю цілого випуску
+

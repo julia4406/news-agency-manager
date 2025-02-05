@@ -78,6 +78,9 @@ class PublicationListView(LoginRequiredMixin, ListView):
         context["search"] = SearchEditorsInPublicationsForm(
         )
 
+        referer_url = self.request.META.get("HTTP_REFERER", "/")
+        context["previous"] = referer_url
+
         return context
 
 
@@ -112,7 +115,8 @@ def update_status_of_publication(request, pk):
         publication.status = Publication.TaskStatuses.ASSIGNED
 
     publication.save()
-    return redirect("manager_app:publication-list")
+    referer_url = request.META.get("HTTP_REFERER", "/")
+    return redirect(referer_url)
 
 
 class PublicationDeleteView(LoginRequiredMixin, DeleteView):
@@ -211,17 +215,9 @@ class SubjectRelatedPublicationsListView(LoginRequiredMixin, ListView):
         return context
 
 
-
-
-
-
-
-
-
-
-
 def under_construction(request):
     return render(request, "under_construction.html")
+
 
 #------------TEMPLATE VIEWS Material Kit----------------------
 # Authentication
@@ -239,8 +235,8 @@ def under_construction(request):
 #
 #     context = {'form': form}
 #     return render(request, 'accounts/sign-up.html', context)
-#
-#
+
+
 class UserLoginView(auth_views.LoginView):
     template_name = "accounts/sign-in.html"
     form_class = LoginForm
@@ -256,7 +252,7 @@ class UserLoginView(auth_views.LoginView):
 
         return super().form_valid(form)
 
-#
+
 # class UserPasswordResetView(auth_views.PasswordResetView):
 #     template_name = 'accounts/password_reset.html'
 #     form_class = UserPasswordResetForm
@@ -270,8 +266,8 @@ class UserLoginView(auth_views.LoginView):
 # class UserPasswordChangeView(auth_views.PasswordChangeView):
 #     template_name = 'accounts/password_change.html'
 #     form_class = UserPasswordChangeForm
-#
-#
+
+
 def user_logout_view(request):
     logout(request)
     return redirect("/accounts/login/")
