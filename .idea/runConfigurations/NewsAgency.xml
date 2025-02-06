@@ -6,7 +6,7 @@
     <option name="PARENT_ENVS" value="true" />
     <envs>
       <env name="PYTHONUNBUFFERED" value="1" />
-      <env name="DJANGO_SETTINGS_MODULE" value="news_agency.settings" />
+      <env name="DJANGO_SETTINGS_MODULE" value="manager_app.settings.dev" />
     </envs>
     <option name="SDK_HOME" value="" />
     <option name="SDK_NAME" value="Python 3.13 (Portfolio_Django_News_agency_Manager)" />

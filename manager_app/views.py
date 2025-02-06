@@ -57,9 +57,11 @@ class PublicationListView(LoginRequiredMixin, ListView):
                     )
         today = timezone.now().date()
 
-        queryset.filter(publication_date__lte=today).update(
+        (queryset.filter(publication_date__lte=today)
+        .exclude(status=Publication.TaskStatuses.DONE)
+        .update(
             status=Publication.TaskStatuses.OVERDUE
-        )
+        ))
 
         form = SearchEditorsInPublicationsForm(self.request.GET)
         if form.is_valid() and form.cleaned_data["query"]:
