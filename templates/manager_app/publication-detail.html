@@ -1,0 +1,109 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block body %}page-frame bg-gray-200{% endblock body %}
+
+{% block content %}
+
+	<!--breadcrumbs-->
+	<div class="container py-2 mt-1">
+  <div class="row">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item text-dark opacity-5">
+					<a href="{% url 'manager_app:index' %}">Home</a></li>
+        <li class="breadcrumb-item text-dark opacity-5">
+					<a href="{% url 'manager_app:publication-list' %}">Publications</a></li>
+        <li class="breadcrumb-item text-dark active" aria-current="page">Publication</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+	<!--end breadcrumbs-->
+
+		<!-- CONTENT -->
+		  <h2>{{ publication.title }}</h2>
+  		<p>Subject: {{ publication.subject.name }}</p>
+
+			<div style="align-items: center;">
+				<div class="header-with-button-right">
+					<h3>Responsive Editors (deadline {{ publication.publication_date }}):</h3>
+					<a href="{% url 'manager_app:publication-update' pk=publication.id%}"
+						 class="btn btn-secondary link-to-page"
+							style="display: inline-flex;"
+							role="button">
+						Update publication
+					</a>
+				</div>
+			</div>
+			<hr class="custom-hr">
+
+			<ul style="list-style: none">
+				{% for editor in publication.executives.all %}
+					<li>
+					<a href="{% url 'manager_app:editor-detail' pk=editor.id%}"
+							style="color: black; font-size: 120%;">
+						{{ editor.first_name }} {{ editor.last_name }}
+					</a>
+					</li>
+				{% endfor %}
+			</ul>
+
+				<h3>Content:</h3>
+				<hr class="custom-hr">
+				<div>
+					{{ publication.content }}
+				</div>
+				<br>
+				<p style="margin-left: 3%;">Created: {{ publication.created_at }}</p>
+
+
+				<br><br><br>
+				<div style="display: flex; gap: 20px;">
+					<a href="{% url 'manager_app:publication-delete' pk=publication.id %}"
+					 class="btn btn-danger link-to-page"
+						data-bs-toggle="modal" data-bs-target="#deleteModal">
+						Delete
+					</a>
+
+					<a href="{% url 'manager_app:publication-update' pk=publication.id%}" class="btn btn-secondary link-to-page">
+						Update
+					</a>
+				</div>
+
+	<!-- Модальне вікно для підтвердження видалення -->
+			<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="deleteModalLabel">Delete publication</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<p>Are you sure you want to delete this publication?</p>
+						</div>
+						<div class="modal-footer">
+							<form action="{% url 'manager_app:publication-delete' pk=publication.id %}" method="post">
+								{% csrf_token %}
+								<button type="submit" class="btn btn-danger">Yes</button>
+							</form>
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+						</div>
+					</div>
+				</div>
+			</div>
+	<!-- end Модальне вікно для підтвердження видалення -->
+
+		<!-- END CONTENT -->
+
+{% endblock content %}
+
+{% block extra_js %}
+  <script src="{% static 'assets/js/plugins/countup.min.js' %}"></script>
+  <script src="{% static 'assets/js/plugins/choices.min.js' %}"></script>
+  <script src="{% static 'assets/js/plugins/prism.min.js' %}"></script>
+  <script src="{% static 'assets/js/plugins/highlight.min.js' %}"></script>
+  <script src="{% static 'assets/js/plugins/rellax.min.js' %}"></script>
+  <script src="{% static 'assets/js/plugins/tilt.min.js' %}"></script>
+  <script src="{% static 'assets/js/plugins/choices.min.js' %}"></script>
+{% endblock extra_js %}

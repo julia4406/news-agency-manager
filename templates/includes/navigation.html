@@ -1,0 +1,126 @@
+{% load static %}
+<!-- Navbar -->
+<div class="container position-sticky z-index-sticky top-0">
+    <div class="row">
+        <div class="col-12">
+            <nav class="navbar navbar-expand-lg blur border-radius-xl top-0 z-index-fixed shadow position-absolute my-3 p-2 start-0 end-0 mx-4">
+                <div class="d-flex align-items-center">
+                    <!-- Home Button -->
+                    <li class="nav-item my-auto list-unstyled">
+                        <a href="{% url "manager_app:index" %}" class="btn bg-gradient-dark mb-0 mt-2 mt-md-0">Home</a>
+                    </li>
+
+                    <!-- Navigation Dropdown -->
+                    <li class="nav-item dropdown dropdown-hover mx-4 list-unstyled">
+                        <a class="nav-link ps-2 d-flex cursor-pointer align-items-center font-weight-semibold"
+                            id="dropdownMenuPages" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="material-symbols-rounded opacity-6 me-2 text-md">dashboard</i>
+                            Navigation
+                            <img src="{% static "assets/img/down-arrow-dark.svg" %}" alt="down-arrow" class="arrow ms-auto ms-md-2">
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-animation ms-n3 dropdown-md p-3 border-radius-xl mt-0 mt-lg-3"
+                            aria-labelledby="dropdownMenuPages">
+                            <div class="d-none d-lg-block">
+                                <h6 class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-1">
+                                    Pages
+                                </h6>
+                                <a href="{% url "manager_app:publication-list" %}" class="dropdown-item border-radius-md">
+                                    <span>Publications</span>
+                                </a>
+                                <a href="{% url 'manager_app:editor-list' %}" class="dropdown-item border-radius-md">
+                                    <span>Editors</span>
+                                </a>
+                                <a href="{% url 'manager_app:subject-list' %}" class="dropdown-item border-radius-md">
+                                    <span>Themes</span>
+                                </a>
+                                <h6 class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-1 mt-3">
+                                    Account
+                                </h6>
+                                <a href="{% url 'manager_app:login' %}" class="dropdown-item
+                                border-radius-md">
+                                    <span>Sign In</span>
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                </div>
+
+                <!-- Navigation Toggle Button -->
+                <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon mt-2">
+                        <span class="navbar-toggler-bar bar1"></span>
+                        <span class="navbar-toggler-bar bar2"></span>
+                        <span class="navbar-toggler-bar bar3"></span>
+                    </span>
+                </button>
+
+                <!-- Other navigation items -->
+                <div class="collapse navbar-collapse pt-3 pb-2 py-lg-0 w-100" id="navigation">
+                    <ul class="navbar-nav navbar-nav-hover ms-auto">
+                        <li class="nav-item dropdown dropdown-hover mx-2">
+                            <a class="nav-link ps-2 d-flex cursor-pointer align-items-center font-weight-semibold"
+                                id="dropdownMenuPages" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="material-symbols-rounded opacity-6 me-2 text-md">dashboard</i>
+                                Info
+                                <img src="{% static "assets/img/down-arrow-dark.svg" %}" alt="down-arrow" class="arrow ms-auto ms-md-2">
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-animation ms-n3 dropdown-md p-3 border-radius-xl mt-0 mt-lg-3"
+                                aria-labelledby="dropdownMenuPages">
+                                <div class="d-none d-lg-block">
+                                    <h6 class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-1">
+                                        Support
+                                    </h6>
+                                    <a href="{% url "manager_app:under_construction" %}" class="dropdown-item border-radius-md">
+                                        <span>About Us</span>
+                                    </a>
+                                    <a href="{% url 'manager_app:contact-us' %}" class="dropdown-item border-radius-md">
+                                        <span>Contact Us</span>
+                                    </a>
+                                    <a href="{% url 'manager_app:under_construction' %}" class="dropdown-item border-radius-md">
+                                        <span>Author</span>
+                                    </a>
+                                    <h6 class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-1 mt-3">
+                                        Account
+                                    </h6>
+                                    <a href="{% url 'manager_app:login' %}" class="dropdown-item
+                                    border-radius-md">
+                                        <span>Sign In</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+
+                        {% if user.is_authenticated %}
+                        <li class="nav-item ms-lg-auto">
+                            <a class="nav-link nav-link-icon me-2" href="{% url 'manager_app:logout' %}">
+                                <i class="fa fa-sign-out me-1"></i>
+                                <p class="d-inline text-sm z-index-1 font-weight-semibold" data-bs-toggle="tooltip"
+                                    data-bs-placement="bottom" title="Logout">Logout</p>
+                            </a>
+                        </li>
+
+
+                        <li class="nav-item my-auto ms-3 ms-lg-0">
+                            <a href="{% url 'manager_app:editor-detail' pk=user.id %}" class="btn
+                            bg-gradient-dark mb-0 mt-2 mt-md-0">User Profile</a>
+                        </li>
+
+                        {% else %}
+                        <li class="nav-item ms-lg-auto">
+                            <a class="nav-link nav-link-icon me-2" href="{% url 'manager_app:login' %}">
+                                <i class="fa fa-sign-in me-1"></i>
+                                <p class="d-inline text-sm z-index-1 font-weight-semibold" data-bs-toggle="tooltip"
+                                    data-bs-placement="bottom" title="Sign IN">Sign IN</p>
+                            </a>
+                        </li>
+                        {% endif %}
+
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
+<!-- End Navbar -->

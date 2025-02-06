@@ -1,0 +1,60 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block body %}page-frame bg-gray-200{% endblock body %}
+
+{% block content %}
+
+	<!--breadcrumbs-->
+	<div class="container py-2 mt-1">
+		<div class="row">
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item text-dark opacity-5">
+						<a href="{% url 'manager_app:index' %}">Home</a></li>
+					<li class="breadcrumb-item text-dark opacity-5">
+						<a href="{% url 'manager_app:subject-list' %}">Themes</a></li>
+					<li class="breadcrumb-item text-dark active" aria-current="page">Publications on
+						theme</li>
+				</ol>
+			</nav>
+		</div>
+	</div>
+	<!--end breadcrumbs-->
+
+		<!-- CONTENT -->
+
+			<h1>Publications on theme "{{ subject.name }}"</h1>
+			<br><br>
+
+			<ul class="list-group list-group-flush">
+			{% for item in publications %}
+				<li class="list-group-item">
+					<strong>#{{ forloop.counter }}</strong>&nbsp;&nbsp;
+					{{ item.title }}&nbsp;&nbsp;&nbsp;
+					/&nbsp;&nbsp;&nbsp;deadline: {{ item.publication_date }}
+				</li>
+			{% empty %}
+				<li class="list-group-item text-muted">No publications found.</li>
+
+			{% endfor %}
+			</ul>
+			<div class="col-4">
+				<a href="{% url 'manager_app:subject-list' %}"
+					 class="btn btn-warning mt-3 w-auto me-2">
+					Back to Subjects
+				</a>
+			</div>
+		<!-- END CONTENT -->
+
+{% endblock content %}
+
+{% block extra_js %}
+  <script src="{% static 'assets/js/plugins/countup.min.js' %}"></script>
+  <script src="{% static 'assets/js/plugins/choices.min.js' %}"></script>
+  <script src="{% static 'assets/js/plugins/prism.min.js' %}"></script>
+  <script src="{% static 'assets/js/plugins/highlight.min.js' %}"></script>
+  <script src="{% static 'assets/js/plugins/rellax.min.js' %}"></script>
+  <script src="{% static 'assets/js/plugins/tilt.min.js' %}"></script>
+  <script src="{% static 'assets/js/plugins/choices.min.js' %}"></script>
+{% endblock extra_js %}

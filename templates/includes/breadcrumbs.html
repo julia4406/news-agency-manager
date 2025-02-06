@@ -1,0 +1,31 @@
+	<!--breadcrumbs-->
+	<div class="container py-2 mt-1">
+  <div class="row">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item text-dark active" aria-current="page">Home</li>
+      </ol>
+    </nav>
+
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item text-dark opacity-5"><a href="{% url 'manager_app:index' %}">Home</a></li>
+        <li class="breadcrumb-item text-dark active" aria-current="page">Library</li>
+      </ol>
+    </nav>
+
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item text-dark opacity-5">
+					<a href="{% url 'manager_app:index' %}">Home</a></li>
+        <li class="breadcrumb-item text-dark opacity-5">
+					<a href="{% url 'manager_app:publication-list' %}">Publications</a></li>
+				<li class="breadcrumb-item text-dark opacity-5">
+					<a href="{% url 'manager_app:publication-detail' pk=publication.id %}">Publication</a></li>
+        <li class="breadcrumb-item text-dark active" aria-current="page">Update</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+	<!--end breadcrumbs-->
+

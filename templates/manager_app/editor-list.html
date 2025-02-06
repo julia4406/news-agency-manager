@@ -1,0 +1,100 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block body %}page-frame bg-gray-200{% endblock body %}
+
+{% block content %}
+	<!--breadcrumbs-->
+	<div class="container py-2 mt-1">
+		<div class="row">
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item text-dark opacity-5">
+						<a href="{% url 'manager_app:index' %}">Home</a></li>
+					<li class="breadcrumb-item text-dark active" aria-current="page">Editors</li>
+				</ol>
+			</nav>
+		</div>
+	</div>
+	<!--end breadcrumbs-->
+
+
+		<!-- CONTENT -->
+			<div class="header-with-button-right">
+				<h1>Editors</h1>
+				<a class="btn btn-success btn-lg"
+					 style="display: inline-flex;"
+					 href="{% url 'manager_app:editor-create' %}"
+					 role="button">
+						Create
+				</a>
+			</div>
+			<br><br>
+
+			<!--table-->
+				<table class="table" style="table-layout: fixed; width: 100%;">
+          <thead style="background-color: #f8f9fa;" class="thead-light">
+            <tr>
+							<th scope="col" style="width: 5%;">#</th>
+              <th scope="col" style="width: 5%;">ID</th>
+              <th scope="col"
+									style="width: 25%;
+									word-wrap: break-word;
+									overflow: hidden;
+									text-overflow: fade;">
+								First name
+							</th>
+							<th scope="col"
+									style="width: 25%;
+									word-wrap: break-word;
+									overflow: hidden;
+									text-overflow: fade;">
+								Last name
+							</th>
+							<th scope="col" style="width: 20%;">INFO</th>
+							<th scope="col" style="width: 20%;">
+								&nbsp;&nbsp;&nbsp;Publications
+								<br>assigned/overdue
+							</th>
+            </tr>
+          </thead>
+
+					{% if editor_list %}
+					{% for item in editor_list %}
+
+							<tr>
+									<td ><strong>{{ forloop.counter }}</strong></td>
+									<td>{{ item.id }}</td>
+									<td>{{ item.first_name }}</td>
+									<td>{{ item.last_name }}</td>
+									<td>
+										<a href="{% url "manager_app:editor-detail" pk=item.id %}"
+												type="button"
+												class="btn bg-gradient-light w-auto me-2">
+											Profile
+										</a>
+									</td>
+									<td>
+										{{ item.publications.count }} / {{ item.overdues }}
+									</td>
+
+							</tr>
+
+						{% endfor %}
+					{% endif %}
+				</table>
+				<!--end table-->
+
+		<!-- END CONTENT -->
+
+{% endblock content %}
+
+{% block extra_js %}
+  <script src="{% static 'assets/js/plugins/countup.min.js' %}"></script>
+  <script src="{% static 'assets/js/plugins/choices.min.js' %}"></script>
+  <script src="{% static 'assets/js/plugins/prism.min.js' %}"></script>
+  <script src="{% static 'assets/js/plugins/highlight.min.js' %}"></script>
+  <script src="{% static 'assets/js/plugins/rellax.min.js' %}"></script>
+  <script src="{% static 'assets/js/plugins/tilt.min.js' %}"></script>
+  <script src="{% static 'assets/js/plugins/choices.min.js' %}"></script>
+{% endblock extra_js %}
