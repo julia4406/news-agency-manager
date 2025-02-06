@@ -110,10 +110,14 @@ class PublicationUpdateView(LoginRequiredMixin, UpdateView):
 
 def update_status_of_publication(request, pk):
     publication = get_object_or_404(Publication, pk=pk)
+    today = timezone.now().date()
 
     if publication.status == Publication.TaskStatuses.ASSIGNED:
         publication.status = Publication.TaskStatuses.DONE
     elif publication.status == Publication.TaskStatuses.DONE:
+        publication.status = Publication.TaskStatuses.ASSIGNED
+    elif (publication.status == Publication.TaskStatuses.OVERDUE
+          and publication.publication_date > today):
         publication.status = Publication.TaskStatuses.ASSIGNED
 
     publication.save()
