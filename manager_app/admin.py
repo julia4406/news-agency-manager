@@ -39,7 +39,7 @@ class EditorAdmin(UserAdmin):
 
 
 @admin.register(Publication)
-class CarAdmin(admin.ModelAdmin):
+class PublicationAdmin(admin.ModelAdmin):
     search_fields = ["title"]
     list_filter = ["executives"]
 
