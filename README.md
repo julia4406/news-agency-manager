@@ -1,6 +1,10 @@
 # news-agency-manager
 - **News agency manager**  `Django project`
 
+- **Note:** to test site you can take default-user
+  - login: `user`
+  - password: `user12345`
+
 
 # prepositions
 - All pages except `index.html` protected with `LoginRequiredMixin`. User should be authenticated for 
