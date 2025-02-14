@@ -10,7 +10,6 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('contact-us/', views.contact_us, name='contact-us'),
     path('author/', views.author, name='author'),
-    path('page-header/', views.page_header, name='page_header'),
 
     path('accounts/login/', views.UserLoginView.as_view(), name='login'),
     path('accounts/logout/', views.user_logout_view, name='logout'),

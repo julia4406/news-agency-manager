@@ -2,9 +2,9 @@ from datetime import timedelta
 
 from django.contrib.auth import logout
 from django.contrib.auth import views as auth_views
-from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Count, Q
+from django.shortcuts import render
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.utils import timezone
@@ -255,10 +255,6 @@ def about_us(request):
 
 def author(request):
     return render(request, "pages/author.html")
-
-
-def page_header(request):
-    return render(request, "sections/page-sections/hero-sections.html")
 
 
 def under_construction(request):
