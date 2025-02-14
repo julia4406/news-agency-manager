@@ -50,12 +50,12 @@
 }
 
 .form-control {
-    border: 1px solid #ced4da; /* Це стандартна рамка */
-    box-shadow: none; /* Для видалення ефекту тіні */
+    border: 1px solid #ced4da;
+    box-shadow: none;
 }
 
 .form-control:focus {
     border-color: #80bdff;
     outline: 0;
-    box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25); /* Підсвічує поле при фокусі */
+    box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
 }

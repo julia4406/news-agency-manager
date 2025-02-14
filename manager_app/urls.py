@@ -6,6 +6,7 @@ from manager_app import views
 app_name = 'manager_app'
 
 urlpatterns = [
+    # General, Header
     path('', views.index, name='index'),
     path('contact-us/', views.contact_us, name='contact-us'),
     path('author/', views.author, name='author'),
@@ -14,6 +15,7 @@ urlpatterns = [
     path('accounts/login/', views.UserLoginView.as_view(), name='login'),
     path('accounts/logout/', views.user_logout_view, name='logout'),
 
+    # Publication
     path(
         'publications/',
         views.PublicationListView.as_view(),
@@ -45,6 +47,7 @@ urlpatterns = [
         name='publication-status'
     ),
 
+    # Editor
     path(
         'editors/',
         views.EditorListView.as_view(),
@@ -66,6 +69,7 @@ urlpatterns = [
         views.EditorDeleteView.as_view(),
         name='editor-delete'),
 
+    # Subject
     path(
         'subjects/',
         views.SubjectListView.as_view(),
@@ -87,6 +91,7 @@ urlpatterns = [
         views.SubjectRelatedPublicationsListView.as_view(),
         name='subject-related'),
 
+    # Temporary page
     path(
         'under-construction/',
         views.under_construction,

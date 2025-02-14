@@ -1,5 +1,8 @@
 from datetime import timedelta
 
+from django.contrib.auth import logout
+from django.contrib.auth import views as auth_views
+from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Count, Q
 from django.shortcuts import redirect, get_object_or_404
@@ -13,6 +16,8 @@ from django.views.generic import (
     DeleteView,
 )
 
+from manager_app.models import Editor, Publication, Subject
+from manager_app.choices import TaskStatuses
 from manager_app.forms import (
     LoginForm,
     PublicationForm,
@@ -21,14 +26,7 @@ from manager_app.forms import (
     EditorUpdateForm,
     SearchEditorsInPublicationsForm,
 )
-from django.contrib.auth import logout
 
-from django.contrib.auth import views as auth_views
-
-from django.shortcuts import render
-
-from manager_app.models import Editor, Publication, Subject
-from manager_app.choices import TaskStatuses
 
 def index(request):
     num_editors = Editor.objects.count()
@@ -64,6 +62,7 @@ class PublicationListView(LoginRequiredMixin, ListView):
         )
 
         form = SearchEditorsInPublicationsForm(self.request.GET)
+
         if form.is_valid() and form.cleaned_data["query"]:
             return queryset.filter(
                 executives__last_name__icontains=form.cleaned_data["query"]
@@ -113,8 +112,10 @@ def update_status_of_publication(request, pk):
 
     if publication.status == TaskStatuses.ASSIGNED:
         publication.status = TaskStatuses.DONE
+
     elif publication.status == TaskStatuses.DONE:
         publication.status = TaskStatuses.ASSIGNED
+
     elif (
         publication.status == TaskStatuses.OVERDUE
         and publication.publication_date > today
@@ -123,6 +124,7 @@ def update_status_of_publication(request, pk):
 
     publication.save()
     referer_url = request.META.get("HTTP_REFERER", "/")
+
     return redirect(referer_url)
 
 
@@ -140,7 +142,10 @@ class EditorListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
 
         queryset = Editor.objects.annotate(
-            overdues=Count("publications", filter=Q(publications__status="Overdue"))
+            overdues=Count(
+                "publications",
+                filter=Q(publications__status="Overdue")
+            )
         ).order_by("last_name")
         return queryset
 
@@ -219,10 +224,6 @@ class SubjectRelatedPublicationsListView(LoginRequiredMixin, ListView):
         return context
 
 
-def under_construction(request):
-    return render(request, "under_construction.html")
-
-
 class UserLoginView(auth_views.LoginView):
     template_name = "accounts/sign-in.html"
     form_class = LoginForm
@@ -258,3 +259,7 @@ def author(request):
 
 def page_header(request):
     return render(request, "sections/page-sections/hero-sections.html")
+
+
+def under_construction(request):
+    return render(request, "under_construction.html")

@@ -1,4 +1,3 @@
-import datetime
 import json
 from django.template import Context
 from django.utils import translation

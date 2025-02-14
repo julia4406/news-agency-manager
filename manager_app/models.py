@@ -26,14 +26,14 @@ class Publication(models.Model):
     title = models.CharField(max_length=255)
     content = models.TextField()
     created_at = models.DateField(auto_now_add=True)
-    publication_date  = models.DateField()
+    publication_date = models.DateField()
     subject = models.ForeignKey(
         Subject,
         on_delete=models.CASCADE,
         related_name="publications"
     )
     executives = models.ManyToManyField(
-        Editor,through="PublicationEditor", related_name="publications"
+        Editor, through="PublicationEditor", related_name="publications"
     )
     status = models.CharField(
         max_length=10,
@@ -43,10 +43,13 @@ class Publication(models.Model):
     )
 
     def __str__(self):
-        return f"{self.title}, deadline {self.publication_date}, subject: {self.subject.name}"
+        return (f"{self.title}, deadline {self.publication_date}, "
+                f"subject: {self.subject.name}")
 
     def get_absolute_url(self):
-        return reverse("manager_app:publication-detail", kwargs={"pk": self.pk})
+        return reverse(
+            "manager_app:publication-detail", kwargs={"pk": self.pk}
+        )
 
 
 class PublicationEditor(models.Model):
@@ -58,4 +61,5 @@ class PublicationEditor(models.Model):
         unique_together = ("publication", "editor")
 
     def __str__(self):
-        return f"{self.editor.username} assigned to {self.publication.title} on {self.assigned_at}"
+        return (f"{self.editor.username} assigned to "
+                f"{self.publication.title} on {self.assigned_at}")
