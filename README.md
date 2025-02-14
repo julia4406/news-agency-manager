@@ -9,6 +9,12 @@
   - password: `user12345`
 
 
+
+## 🔧 Setup and launch
+
+To deploy this project on your own PC follow to instructions here: [**SETUP**](SETUP.md)
+
+
 # prepositions
 - All pages except `index.html` protected with `LoginRequiredMixin`. User should be authenticated for 
 further actions.
