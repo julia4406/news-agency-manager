@@ -3,12 +3,10 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import (
     UserCreationForm,
     AuthenticationForm,
-    PasswordChangeForm,
     UsernameField,
-    PasswordResetForm,
-    SetPasswordForm, UserChangeForm
+    UserChangeForm
 )
-from django.contrib.auth.models import User
+
 from django.core.validators import MinValueValidator
 from django.utils.translation import gettext_lazy as _
 
@@ -37,6 +35,7 @@ class EditorForm(UserCreationForm):
     experience = forms.IntegerField(
         validators=[MinValueValidator(0),]
     )
+
     class Meta(UserCreationForm.Meta):
         model = Editor
         fields = UserCreationForm.Meta.fields + (
@@ -72,68 +71,25 @@ class EditorUpdateForm(UserChangeForm):
 
 
 class SubjectForm(forms.ModelForm):
+
     class Meta:
         model = Subject
         fields = ["name",]
 
 
 class SearchEditorsInPublicationsForm(forms.Form):
-    query = forms.CharField(
-        max_length=255,
-        required=False,
-    )
+    query = forms.CharField(max_length=255, required=False)
 
-
-
-# class RegistrationForm(UserCreationForm):
-#     class Meta:
-#         model = User
-#         fields = ('username', 'email',)
-#
-#     def __init__(self, *args, **kwargs):
-#         super().__init__(*args, **kwargs)
-#
-#         for field in self.fields:
-#             self.fields[field].widget.attrs.update({
-#                 'class': 'form-control',
-#             })
-#
 
 class LoginForm(AuthenticationForm):
-    username = UsernameField(widget=forms.TextInput(attrs={"class": "form-control"}))
+    username = UsernameField(
+        widget=forms.TextInput(attrs={"class": "form-control"})
+    )
     password = forms.CharField(
         label=_("Password"),
         strip=False,
         widget=forms.PasswordInput(
-            attrs={"autocomplete": "current-password", "class": "form-control"}),
+            attrs={"autocomplete": "current-password", "class": "form-control"}
+        ),
     )
-    remember_me = forms.BooleanField(
-        required=False, initial=False
-    )
-
-#
-# class UserPasswordResetForm(PasswordResetForm):
-#     email = forms.EmailField(widget=forms.EmailInput(attrs={
-#         'class': 'form-control'
-#     }))
-#
-#
-# class UserSetPasswordForm(SetPasswordForm):
-#     new_password1 = forms.CharField(max_length=50, widget=forms.PasswordInput(attrs={
-#         'class': 'form-control'
-#     }), label="New Password")
-#     new_password2 = forms.CharField(max_length=50, widget=forms.PasswordInput(attrs={
-#         'class': 'form-control'
-#     }), label="Confirm New Password")
-#
-#
-# class UserPasswordChangeForm(PasswordChangeForm):
-#     old_password = forms.CharField(max_length=50, widget=forms.PasswordInput(attrs={
-#         'class': 'form-control'
-#     }), label='Old Password')
-#     new_password1 = forms.CharField(max_length=50, widget=forms.PasswordInput(attrs={
-#         'class': 'form-control'
-#     }), label="New Password")
-#     new_password2 = forms.CharField(max_length=50, widget=forms.PasswordInput(attrs={
-#         'class': 'form-control'
-#     }), label="Confirm New Password")
+    remember_me = forms.BooleanField(required=False, initial=False)

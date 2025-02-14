@@ -2,6 +2,8 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.urls import reverse
 
+from manager_app.choices import TaskStatuses
+
 
 class Subject(models.Model):
     name = models.CharField(max_length=50, unique=True)
@@ -21,11 +23,6 @@ class Editor(AbstractUser):
 
 
 class Publication(models.Model):
-    class TaskStatuses(models.TextChoices):
-        DONE = "Done", "Done"
-        ASSIGNED = "Assigned", "Assigned"
-        OVERDUE = "Overdue", "Overdue"
-
     title = models.CharField(max_length=255)
     content = models.TextField()
     created_at = models.DateField(auto_now_add=True)
@@ -41,7 +38,7 @@ class Publication(models.Model):
     status = models.CharField(
         max_length=10,
         choices=TaskStatuses.choices,
-        default="Assigned",
+        default=TaskStatuses.ASSIGNED,
         blank=True,
     )
 

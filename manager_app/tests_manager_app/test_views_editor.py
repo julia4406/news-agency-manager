@@ -1,12 +1,8 @@
-from http.client import responses
-from idlelib.rpc import response_queue
-
 from django.contrib.auth import get_user_model
 from django.db.models import Count, Q
 from django.test import TestCase
 from django.urls import reverse
 
-from manager_app.forms import EditorForm
 from manager_app.models import Editor, Publication, Subject
 
 

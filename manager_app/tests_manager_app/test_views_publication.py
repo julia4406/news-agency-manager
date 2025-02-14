@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
 
-from manager_app.models import Editor, Publication, Subject
+from manager_app.models import Publication, Subject
 
 
 PUBLICATION_LIST_URL = reverse("manager_app:publication-list")
@@ -114,7 +114,9 @@ class PublicationViewTests(TestCase):
             )
         )
         self.assertEqual(response.status_code, 302)
-        self.assertFalse(Publication.objects.filter(id=publication.id).exists())
+        self.assertFalse(
+            Publication.objects.filter(id=publication.id).exists()
+        )
 
     def test_status_of_publication_updated(self):
         publication = Publication.objects.create(

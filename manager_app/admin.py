@@ -64,7 +64,9 @@ class RegistrationForm(UserCreationForm):
 
 
 class LoginForm(AuthenticationForm):
-    username = UsernameField(widget=forms.TextInput(attrs={"class": "form-control"}))
+    username = UsernameField(
+        widget=forms.TextInput(attrs={"class": "form-control"})
+    )
     password = forms.CharField(
         label=_("Password"),
         strip=False,
@@ -80,21 +82,29 @@ class UserPasswordResetForm(PasswordResetForm):
 
 
 class UserSetPasswordForm(SetPasswordForm):
-    new_password1 = forms.CharField(max_length=50, widget=forms.PasswordInput(attrs={
-        'class': 'form-control'
-    }), label="New Password")
-    new_password2 = forms.CharField(max_length=50, widget=forms.PasswordInput(attrs={
-        'class': 'form-control'
-    }), label="Confirm New Password")
+    new_password1 = forms.CharField(
+        max_length=50, widget=forms.PasswordInput(
+            attrs={'class': 'form-control'}), label="New Password"
+    )
+    new_password2 = forms.CharField(
+        max_length=50, widget=forms.PasswordInput(
+            attrs={'class': 'form-control'}), label="Confirm New Password"
+    )
 
 
 class UserPasswordChangeForm(PasswordChangeForm):
-    old_password = forms.CharField(max_length=50, widget=forms.PasswordInput(attrs={
-        'class': 'form-control'
-    }), label='Old Password')
-    new_password1 = forms.CharField(max_length=50, widget=forms.PasswordInput(attrs={
-        'class': 'form-control'
-    }), label="New Password")
-    new_password2 = forms.CharField(max_length=50, widget=forms.PasswordInput(attrs={
-        'class': 'form-control'
-    }), label="Confirm New Password")
+    old_password = forms.CharField(
+        max_length=50, widget=forms.PasswordInput(
+            attrs={'class': 'form-control'}
+        ), label='Old Password'
+    )
+    new_password1 = forms.CharField(
+        max_length=50, widget=forms.PasswordInput(
+            attrs={'class': 'form-control'}
+        ), label="New Password"
+    )
+    new_password2 = forms.CharField(
+        max_length=50, widget=forms.PasswordInput(
+            attrs={'class': 'form-control'}
+        ), label="Confirm New Password"
+    )
