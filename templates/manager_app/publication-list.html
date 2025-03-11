@@ -1,0 +1,189 @@
+{% extends "layouts/base.html" %}
+{% load crispy_forms_filters %}
+{% load static %}
+
+{% block body %}page-frame bg-gray-200{% endblock body %}
+
+{% block content %}
+
+	<!--breadcrumbs-->
+	<div class="container py-2 mt-1">
+		<div class="row">
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item text-dark opacity-5">
+						<a href="{% url 'manager_app:index' %}">Home</a></li>
+					<li class="breadcrumb-item text-dark active" aria-current="page">Publications</li>
+				</ol>
+			</nav>
+		</div>
+	</div>
+	<!--end breadcrumbs-->
+
+		<!-- CONTENT -->
+
+	<!--SEARCH EDITOR FORM-->
+		<section>
+			<div class="container">
+				<div class="row justify-content-end py-1">
+					<div class="col-lg-4 ml-auto">
+						<form method="get" action="">
+							<div class="input-group">
+								<input type="text"
+											 class="form-control"
+											 placeholder="Editor..."
+											 name="query"
+											 value="{{ request.GET.query }}"
+											 style="height: fit-content">
+								<button type="submit" class="btn btn-dark">Search</button>
+
+								{% if request.GET.query %}
+									<a href="{% url 'manager_app:publication-list' %}" class="btn btn-light">Reset</a>
+								{% endif %}
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</section>
+	<!--END SEARCH EDITOR FORM-->
+
+		<div class="header-with-button-right">
+
+			<h1>Publications</h1>
+
+			<a class="btn btn-success btn-lg"
+				 style="display: inline-flex;"
+				 href="{% url 'manager_app:publication-create' %}"
+				 role="button">
+					Create
+			</a>
+  	</div>
+		<br><br>
+
+				<!--table-->
+				<table class="table" style="table-layout: fixed; width: 100%;">
+          <thead style="background-color: #f8f9fa;" class="thead-light">
+            <tr>
+							<th scope="col" style="width: 3%;">#</th>
+              <th scope="col" style="width: 3%;">ID</th>
+              <th scope="col"
+									style="width: 30%;
+									word-wrap: break-word;
+									overflow: hidden;
+									text-overflow: fade;">
+								Title
+							</th>
+							<th scope="col" style="width: 9%;">Theme</th>
+							<th scope="col" style="width: 8%;">INFO</th>
+              <th scope="col" style="width: 15%;">Release Date</th>
+              <th scope="col" style="width: 17%;">Editors-in-chief</th>
+							<th scope="col" style="width: 10%;">IsDone</th>
+							<th scope="col" style="width: 10%;">Delete</th>
+            </tr>
+          </thead>
+
+					{% if publication_list %}
+					{% for item in publication_list %}
+
+							<tr>
+									<td><strong>{{ forloop.counter }}</strong></td>
+									<td>{{ item.id }}</td>
+									<td>{{ item.title }}</td>
+									<td>{{ item.subject }}</td>
+									<td>
+										<a href="{% url "manager_app:publication-detail" pk=item.id %}"
+												type="button"
+												class="btn bg-gradient-light w-auto me-2">
+											Details
+										</a>
+									</td>
+									<td>
+
+											{% if two_day_gap >= item.publication_date %}
+												<span style="color: red">
+													{{ item.publication_date }}
+												</span>
+											{% else %}
+												{{ item.publication_date }}
+											{% endif %}
+
+									</td>
+									<td>
+										{%  for editor in item.executives.all %}
+											{{ editor.first_name }} {{ editor.last_name }}<br>
+										{% endfor %}
+									</td>
+									<td>
+										{% if item.status == "Done" %}
+											<a href="{% url "manager_app:publication-status" pk=item.id %}"
+													type="button"
+													class="btn bg-gradient-faded-success w-auto me-2">
+												done
+											</a>
+										{% elif item.status == "Assigned" %}
+											<a href="{% url "manager_app:publication-status" pk=item.id %}"
+													type="button"
+													class="btn bg-gradient-faded-light-vertical w-auto me-2">
+												assigned
+											</a>
+										{% elif item.status == "Overdue" %}
+											<a href="{% url "manager_app:publication-status" pk=item.id %}"
+													type="button"
+													class="btn bg-gradient-danger w-auto me-2">
+												overdue
+											</a>
+										{% endif %}
+									</td>
+									<td>
+											<a href="{% url "manager_app:publication-delete" pk=item.id %}"
+													class="btn bg-gradient-faded-danger-vertical w-auto me-2"
+													data-bs-toggle="modal" data-bs-target="#deleteModal">
+												delete
+											</a>
+											<!-- Модальне вікно для підтвердження видалення -->
+													<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+														<div class="modal-dialog">
+															<div class="modal-content">
+																<div class="modal-header">
+																	<h5 class="modal-title" id="deleteModalLabel">Delete publication</h5>
+																	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+																</div>
+																<div class="modal-body">
+																	<p>Are you sure you want to delete this publication?</p>
+																</div>
+																<div class="modal-footer">
+																	<form
+																			action="{% url 'manager_app:publication-delete' pk=item.id %}"
+																			method="post">
+																		{% csrf_token %}
+																		<button type="submit" class="btn btn-danger">Yes</button>
+																	</form>
+																	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+																</div>
+															</div>
+														</div>
+													</div>
+											<!-- end Модальне вікно для підтвердження видалення -->
+
+										</td>
+							</tr>
+
+						{% endfor %}
+					{% endif %}
+				</table>
+				<!--end table-->
+
+	<!-- END CONTENT -->
+
+{% endblock content %}
+
+{% block extra_js %}
+  <script src="{% static 'assets/js/plugins/countup.min.js' %}"></script>
+  <script src="{% static 'assets/js/plugins/choices.min.js' %}"></script>
+  <script src="{% static 'assets/js/plugins/prism.min.js' %}"></script>
+  <script src="{% static 'assets/js/plugins/highlight.min.js' %}"></script>
+  <script src="{% static 'assets/js/plugins/rellax.min.js' %}"></script>
+  <script src="{% static 'assets/js/plugins/tilt.min.js' %}"></script>
+  <script src="{% static 'assets/js/plugins/choices.min.js' %}"></script>
+{% endblock extra_js %}
